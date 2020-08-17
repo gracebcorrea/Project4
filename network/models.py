@@ -7,9 +7,9 @@ class User(AbstractUser):
     pass
 
 class Profile(models.Model):
-    User = models.ForeignKey('User', on_delete=models.CASCADE,related_name='username')
-    Follower = models.ForeignKey('User', on_delete=models.CASCADE, related_name='followings')  #seguidores
-    Following = models.ForeignKey('User', on_delete=models.CASCADE, related_name='followers')  #seguindo
+    User = models.ForeignKey('User', on_delete = models.CASCADE,related_name ='usernames')
+    Follower = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followings')  #seguidores
+    Following = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followers')  #seguindo
 
     @property
     def TotalFollowers(self):
@@ -21,10 +21,10 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return f"({self.User['id']}) ({self.User['username']})({self.Followers})({self.Following})"
+        return f"({self.username})({self.Followers})({self.Following})"
 
 class Posts(models.Model):
-    User = models.ForeignKey('User', on_delete=models.CASCADE, related_name='author')
+    User = models.ForeignKey('User', on_delete = models.CASCADE, related_name = 'authors')
     Post = models.TextField(max_length=255)
     Date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     Likes = models.IntegerField()
@@ -42,4 +42,4 @@ class Posts(models.Model):
 
 
     def __str__(self):
-        return f"({self.User['id']}) ({self.User['username']})({self.Post})({self.Date}) ({self.Likes}) ({self.Unlikes}) "
+        return f"({self.author})({self.Post})({self.Date}) ({self.Likes}) ({self.Unlikes}) "
