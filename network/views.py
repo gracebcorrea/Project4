@@ -1,10 +1,12 @@
+import sqlite3, datetime, os, os.path
+
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Profile, Posts
 
 
 def index(request):
@@ -62,7 +64,14 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+"""__________________________________________________________________________________________________"""
 
 def profile(request):
 
     return render(request, "network/profile.html")
+
+def Allposts(request):
+
+    return render(request, "network/index.html")
+
+    
