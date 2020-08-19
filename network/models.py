@@ -1,6 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import datetime
+from django import forms
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, Http404
+from django.shortcuts import render
+from django.urls import reverse
+
+from PIL import Image
+from PIL.Image import core as _imaging
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 class User(AbstractUser):
