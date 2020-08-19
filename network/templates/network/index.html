@@ -2,6 +2,7 @@
 
 {% block body %}
   <h1>Network Feed</h1>
+  <hr>
   <div class="form-group" >
         <form >
             {% csrf_token %}
@@ -11,21 +12,20 @@
                         <div class="row"  width="1700px">
                           <div class="col-lg-2">
                           </div>
-                          <div class="col-lg-4">
-                            <p>   {{Post.User}}  </p>
+                          <div class="col-lg-2">
+                            <p>   {{Post.User.username}}  </p>
 
                           </div>
-                          <div class="col-lg-4">
+                          <div class="col-lg-6">
                               <p> {{Post.Post}} </p>
-                              <p> {{Post.Date}} </p>
-                              <p> {{Post.Likes}} {{Post.Unlikes}}</p>
-
-
-
-
 
                           </div>
                           <div class="col-lg-2">
+                             <p> {{Post.Date}} </p>
+                             <p> {{Post.Likes}}  <i class="fas fa-thumbs-up"></i><i class="far fa-thumbs-up"></i>
+                               {{Post.Unlikes}} <i class="fas fa-thumbs-down"></i> <i class="far fa-thumbs-down"></i>
+
+                             </p>
                           </div>
                       </div>
 
