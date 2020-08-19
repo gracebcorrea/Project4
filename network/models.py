@@ -8,9 +8,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     User = models.ForeignKey('User', on_delete = models.CASCADE,related_name ='usernames')
-    Follower = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followings')  #seguidores
-    Following = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followers')  #seguindo
-    Avatar = models.ImageField(upload_to="media", blank=True) 
+    Follower = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followings', blank=True)  #seguidores
+    Following = models.ForeignKey('User', on_delete = models.CASCADE, related_name ='followers', blank=True)  #seguindo
+    Avatar = models.ImageField(upload_to="media", blank=True)
 
     @property
     def TotalFollowers(self):
