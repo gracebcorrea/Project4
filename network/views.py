@@ -13,9 +13,15 @@ from .models import User, Profile, Posts
 
 def index(request):
     d = datetime.now()
+    Profile =  Profile.objects.all()
+    AllPosts = Posts.objects.all()
+
+
+
+
     context={
             "Today" : d,
-            "AllPosts": Posts.objects.all(),
+            "AllPosts": AllPosts,
     }
     return render(request, "network/index.html", context)
 
@@ -83,3 +89,19 @@ def profile(request):
 def Allposts(request):
 
     return render(request, "network/index.html")
+
+class Pegafoto(models.Manager):
+    def PegaFotoPost(self):
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT pr.User_id, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
+                FROM network_profile pr, network_posts po
+                WHERE pr.User_id = po.User_id
+                ORDER BY po.Date DESC""")
+            result_list = []
+            for row in cursor.fetchall():
+                p = self.model(User_id=row[0],Avatar=row[1], Post=row[2], Date=row[3], Likes=[4], Unlikes=[5] )
+
+                result_list.append(p)
+        return result_list
