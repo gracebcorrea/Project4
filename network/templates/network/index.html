@@ -2,9 +2,35 @@
 
 {% block body %}
   <h1>Network Feed</h1>
+  <div class="form-group" >
+        <form >
+            {% csrf_token %}
+            {% if AllPosts|length > 0 %}
+                {% for Post in AllPosts %}
+                    <div class="container" style=width:90%">
+                        <div class="row"  width="1700px">
+                          <div class="col-lg-2">
+                          </div>
+                          <div class="col-lg-4">
+                            <p>   {{Post.User}}  </p>
+
+                          </div>
+                          <div class="col-lg-4">
+                              <p> {{Post.Post}} </p>
+                              <p> {{Post.Date}} </p>
+                              <p> {{Post.Likes}} {{Post.Unlikes}}</p>
 
 
 
 
 
+                          </div>
+                          <div class="col-lg-2">
+                          </div>
+                      </div>
+
+                    </div>
+
+                {% endfor %}
+            {% endif %}
 {% endblock %}
