@@ -1,0 +1,11 @@
+body {
+      padding: 10px;
+      color:  #e6ffff ;
+      background-color:  #00cc99;
+      background-image: linear-gradient(to top left,  black, gray, white );
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+
+    }
