@@ -1,4 +1,6 @@
 import sqlite3, datetime, os, os.path
+import time
+from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -10,6 +12,14 @@ from .models import User, Profile, Posts
 
 
 def index(request):
+    d = datetime.now()
+    context={
+            "Today" : d,
+            "AllPosts": Posts.objects.all(),
+    }
+    return render(request, "network/index.html", context)
+
+
     return render(request, "network/index.html")
 
 
@@ -73,5 +83,3 @@ def profile(request):
 def Allposts(request):
 
     return render(request, "network/index.html")
-
-    
