@@ -1,0 +1,6 @@
+id,password,last_login,is_superuser,username,first_name,last_name,email,is_staff,is_active,date_joined
+1,pbkdf2_sha256$216000$0teMuFjTgHB2$VI6uzNIKKlZan4s277m0CqA/ael2InrMAGI2NLK/P40=,2020-08-19 17:22:48,1,superuser,,,superuser@cs50w.com,1,1,2020-08-19 17:22:01
+2,grace,2020-08-19 17:23:02,0,Grace,Grace,,grace@cs50w.com,1,1,2020-08-19 17:22:55
+3,harry,2020-08-19 17:24:17,0,Harry,Harry,Potter,harry@cs50w.com,0,1,2020-08-19 17:24:07
+4,hermione,2020-08-19 17:24:57,0,Hermione,Hermione,Granger,hermione@cs50w.com,0,1,2020-08-19 17:24:45
+5,ron,2020-08-19 17:25:50,0,Ron,Ron,Weasley,ron@cs50w.com,0,1,2020-08-19 17:25:45
