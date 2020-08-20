@@ -1,0 +1,45 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+  <h1>{{ request.user.username }}´s Profile</h1>
+  <hr>
+  <div class="form-group" >
+      <form >
+          {% csrf_token %}
+          {% for P  in Profiles %}
+          <div class="container" style="border:#004d00; width:90%">
+              <br>
+              <div class="row"  width="1700px">
+                  <div class="col-lg-2">
+                      <h3>{{P.User}}</h3>
+                  </div>
+                  <div class="col-lg-4">
+
+                      <img src=" {{P.Avatar.url}} "  width="200">
+                  </div>
+                  <br>
+                  <div class="col-lg-4">
+                    <h3>Total Followers</h3>
+                    <p>{{P.TotalFollowers}}</p>
+
+                    <h3>Total Following</h3>
+                    <p>{{P.TotalFollowing}}</p>
+
+
+                  </div>
+                  <div class="col-lg-2">
+
+                  </div>
+              </div>
+              <hr>
+          </div>
+
+
+
+
+
+         {% endfor%}
+      </form>
+  </div>
+
+{% endblock %}
