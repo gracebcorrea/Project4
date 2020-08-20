@@ -1,13 +1,15 @@
-import sqlite3, datetime, os, os.path
-import time
+import sqlite3, datetime, os, os.path, time
 from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError,connection
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError,connection, models
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse,include, path
 
+
+from . import views
 from .models import User, Profile, Posts
 
 
