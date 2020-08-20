@@ -18,7 +18,7 @@ def index(request):
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
-        print(result_list)
+        #print(result_list)
 
         context={
             "AllPosts": result_list,
@@ -87,16 +87,28 @@ def register(request):
 @login_required
 def profile(request):
     profile= []
+    TFollowers = 0
+    TFollowing = 0
     user = User.objects.get(username=request.user.username)
-    profile= Profile.objects.filter(User=user)
-    tota
-
+    profile = Profile.objects.filter(User=user)
     print(profile)
+
+    for FS in profile:
+        TFollowers = FS.Follower.all().count()
+
+    for FG in profile:
+        TFollowing = FG.Following.all().count()
+
+
+    print(TFollowers,TFollowing)
+
+
 
     context={
         "Profiles":profile,
+        "TotalFollowers":TFollowers,
+        "TotalFollowing":TFollowing,
     }
-
     return render(request, "network/profile.html", context)
 
 
