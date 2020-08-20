@@ -14,17 +14,21 @@ from .models import User, Profile, Posts
 
 
 def index(request):
-    result_list = []
-    result_list = allposts()
-    print(result_list)
 
-    context={
+    if request.user.is_authenticated:
+        result_list = []
+        result_list = allposts()
+        print(result_list)
+
+        context={
             "AllPosts": result_list,
-    }
-    return render(request, "network/index.html", context)
-
-
-    return render(request, "network/index.html")
+        }
+        return render(request, "network/index.html", context)
+    else:
+        context={
+            "Message": "Please Login or join our Network",
+        }
+        return render(request, "network/index.html", context)
 
 
 def login_view(request):
@@ -38,7 +42,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("network:index"))
         else:
             return render(request, "network/login.html", {
                 "message": "Invalid username and/or password."
@@ -49,7 +53,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("network:index"))
 
 
 def register(request):
@@ -74,16 +78,29 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("network:index"))
     else:
         return render(request, "network/register.html")
 
 """__________________________________________________________________________________________________"""
 
+@login_required
 def profile(request):
+    profile= []
+    user = User.objects.get(username=request.user.username)
+    profile= Profile.objects.filter(User=user)
+    tota
 
-    return render(request, "network/profile.html")
+    print(profile)
 
+    context={
+        "Profiles":profile,
+    }
+
+    return render(request, "network/profile.html", context)
+
+
+@login_required
 def post_view(request):
 
     return render(request, "network/index.html")
@@ -110,3 +127,9 @@ def dictfetchall(cursor):
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
+
+
+
+
+
+#winpty python manage.py createsuperuser
