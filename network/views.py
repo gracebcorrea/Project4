@@ -82,9 +82,13 @@ def profile(request):
 
     return render(request, "network/profile.html")
 
-def Allposts(request):
+def post_view(request):
 
     return render(request, "network/index.html")
+
+
+
+
 
 def allposts():
     with connection.cursor() as cursor:
