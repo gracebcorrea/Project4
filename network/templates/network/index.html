@@ -7,23 +7,23 @@
         <form >
             {% csrf_token %}
             {% if AllPosts|length > 0 %}
-                {% for Post in AllPosts %}
+                {% for P in AllPosts %}
                     <div class="container" style=width:90%">
                         <div class="row"  width="1700px">
                           <div class="col-lg-3">
 
-                            <p>   {{Post.username}}  </p>
-                            <p>   <img src=" {{Post.Avatar.url}} "  width="150">  </p>
+                            <p>   {{P.username}}  </p>
+                            <p>   <img src=" {{P.Avatar.url}} "  width="150">  </p>
 
                           </div>
                           <div class="col-lg-6">
-                              <p> {{Post.Post}} </p>
+                              <p> {{P.Post}} </p>
 
                           </div>
                           <div class="col-lg-3">
-                             <p> {{Post.Date}} </p>
-                             <p> {{Post.Likes}}  <i class="fas fa-thumbs-up"></i> <i class="far fa-thumbs-up"></i>
-                                 {{Post.Unlikes}} <i class="fas fa-thumbs-down"></i>  <i class="far fa-thumbs-down"></i>
+                             <p> {{P.Date}} </p>
+                             <p> {{P.Likes}}  <i class="fas fa-thumbs-up"></i> <i class="far fa-thumbs-up"></i>
+                                 {{P.Unlikes}} <i class="fas fa-thumbs-down"></i>  <i class="far fa-thumbs-down"></i>
 
                              </p>
                           </div>
