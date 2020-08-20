@@ -3,30 +3,31 @@
 {% block body %}
   <h1>Network Feed</h1>
   <hr>
+  <h1>{{Message}}</h1>
   <div class="form-group" >
         <form >
             {% csrf_token %}
             {% if AllPosts|length > 0 %}
-                {% for P in AllPosts %}
+                {% for A in AllPosts %}
                     <div class="container" style=width:90%">
                         <div class="row"  width="1700px">
                           <div class="col-lg-3">
 
-                            <p>   {{P.username}}  </p>
+                            <p>   {{A.username}}  </p>
                             <br>
-                            <img src="{{P.Avatar.url}}"  width="100">
+                            <img src=" {{A.Avatar.url}} "  width="150">
 
                             <br>
 
                           </div>
                           <div class="col-lg-6">
-                              <p> {{P.Post}} </p>
+                              <p> {{A.Post}} </p>
 
                           </div>
                           <div class="col-lg-3">
-                             <p> {{P.Date}} </p>
-                             <p> {{P.Likes}}  <i class="fas fa-thumbs-up"></i> <i class="far fa-thumbs-up"></i>
-                                 {{P.Unlikes}} <i class="fas fa-thumbs-down"></i>  <i class="far fa-thumbs-down"></i>
+                             <p> {{A.Date}} </p>
+                             <p> {{A.Likes}}  <i class="fas fa-thumbs-up"></i> <i class="far fa-thumbs-up"></i>
+                                 {{A.Unlikes}} <i class="fas fa-thumbs-down"></i>  <i class="far fa-thumbs-down"></i>
 
                              </p>
                           </div>
