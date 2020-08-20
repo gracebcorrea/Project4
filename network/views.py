@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
+from django.db import IntegrityError,connection
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -12,16 +12,12 @@ from .models import User, Profile, Posts
 
 
 def index(request):
-    d = datetime.now()
-    Profile =  Profile.objects.all()
-    AllPosts = Posts.objects.all()
-
-
-
+    result_list = []
+    result_list = allposts()
+    print(result_list)
 
     context={
-            "Today" : d,
-            "AllPosts": AllPosts,
+            "AllPosts": result_list,
     }
     return render(request, "network/index.html", context)
 
@@ -90,18 +86,21 @@ def Allposts(request):
 
     return render(request, "network/index.html")
 
-class Pegafoto(models.Manager):
-    def PegaFotoPost(self):
+def allposts():
+    with connection.cursor() as cursor:
+        cursor.execute(f"""
+            SELECT u.username, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
+            FROM network_user u, network_profile pr, network_posts po
+            WHERE pr.User_id = po.User_id AND po.User_id = u.id
+            ORDER BY po.Date DESC""")
+        results = dictfetchall(cursor)
 
-        with connection.cursor() as cursor:
-            cursor.execute("""
-                SELECT pr.User_id, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
-                FROM network_profile pr, network_posts po
-                WHERE pr.User_id = po.User_id
-                ORDER BY po.Date DESC""")
-            result_list = []
-            for row in cursor.fetchall():
-                p = self.model(User_id=row[0],Avatar=row[1], Post=row[2], Date=row[3], Likes=[4], Unlikes=[5] )
+    return results
 
-                result_list.append(p)
-        return result_list
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
