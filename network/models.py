@@ -36,7 +36,7 @@ class Profile(models.Model):
 class Posts(models.Model):
     User = models.ForeignKey('User', on_delete = models.CASCADE)
     Post = models.TextField(max_length=255)
-    Date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+    Date = models.DateTimeField(auto_now_add=True)
     Likes = models.IntegerField(blank=True, null=True)
     Unlikes = models.IntegerField(blank=True, null=True)
 
