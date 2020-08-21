@@ -22,7 +22,7 @@ def index(request):
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
-        print(result_list)
+        #print(result_list)
 
         context={
             "AllPosts": result_list,
@@ -95,20 +95,21 @@ def profile(request,username):
     TFollowers = 0
     TFollowing = 0
     user = User.objects.get(username=request.user.username)
+
     profile = Profile.objects.filter(User=user)
-    print(f"Profile:  ",profile)
+    print(f"Profile:  ",user, profile)
 
     for FS in profile:
         TFollowers = FS.Follower.all().count() #total followers
         UFollowers = FS.Follower.all() #followers names
+    print(TFollowers,UFollowers)
 
     for FG in profile:
         TFollowing = FG.Following.all().count() #total following
         UFollowing = FG.Following.all() #following names
+    print(TFollowing,UFollowing)
 
     UserPosts = Posts.objects.filter(User=request.user).order_by('-Date')
-
-    print("USER POSTS",UserPosts)
 
 
     context={
