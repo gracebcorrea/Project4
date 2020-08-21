@@ -1,12 +1,12 @@
 body {
       padding: 10px;
       color:  #e6ffff ;
-      background-color: linear-gradient(to top left,  black, gray, white );
-    /*  background-image: linear-gradient(to top left,  black, gray, white );*/
+      background-color: black;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       height: 100%;
+      width: 100%;
 
     }
 
