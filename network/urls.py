@@ -14,7 +14,7 @@ urlpatterns = [
     path("register", views.register, name="register"),
 
 
-    path("profile",views.profile, name="profile"),
+    path("profile/<str:Btitle>",views.profile, name="profile"),
     path("post",views.post_view, name="post"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
