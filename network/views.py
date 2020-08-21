@@ -94,29 +94,32 @@ def profile(request,username):
     UserPosts = []
     TFollowers = 0
     TFollowing = 0
-    #user = User.objects.get(username=request.user.username)
+
     searchuser = username
     userid = User.objects.filter(username=searchuser).values('id')
-
     for u in userid:
         User_id = int(u['id'])
     profile = Profile.objects.filter(User=User_id )
 
-    print(f"Profile:  ", profile)
-
-
+    UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
+    print(UserPosts)
 
     for FS in profile:
         TFollowers = FS.Follower.all().count() #total followers
         UFollowers = FS.Follower.all() #followers names
+
     print(TFollowers,UFollowers)
 
     for FG in profile:
         TFollowing = FG.Following.all().count() #total following
         UFollowing = FG.Following.all() #following names
-    print(TFollowing,UFollowing)
 
-    UserPosts = Posts.objects.filter(User=request.user).order_by('-Date')
+
+
+    if request.user.id == User_id:
+        ShowFollowornot = "no"
+    else:
+        ShowFollowornot = "yes"
 
 
     context={
@@ -126,6 +129,7 @@ def profile(request,username):
         "UserPosts": UserPosts,
         "UserFollowers":UFollowers,
         "Userfollowing":UFollowing ,
+        "ShowFollowornot" :ShowFollowornot,
     }
     return render(request, "network/profile.html", context)
 
