@@ -89,8 +89,9 @@ def register(request):
 """__________________________________________________________________________________________________"""
 
 @login_required
-def profile(request):
+def profile(request,username):
     profile= []
+    UserPosts = []
     TFollowers = 0
     TFollowing = 0
     user = User.objects.get(username=request.user.username)
@@ -98,15 +99,25 @@ def profile(request):
     print(f"Profile:  ",profile)
 
     for FS in profile:
-        TFollowers = FS.Follower.all().count()
+        TFollowers = FS.Follower.all().count() #total followers
+        UFollowers = FS.Follower.all() #followers names
 
     for FG in profile:
-        TFollowing = FG.Following.all().count()
+        TFollowing = FG.Following.all().count() #total following
+        UFollowing = FG.Following.all() #following names
+
+    UserPosts = Posts.objects.filter(User=request.user).order_by('-Date')
+
+    print("USER POSTS",UserPosts)
+
 
     context={
         "Profiles":profile,
         "TotalFollowers":TFollowers,
         "TotalFollowing":TFollowing,
+        "UserPosts": UserPosts,
+        "UserFollowers":UFollowers,
+        "Userfollowing":UFollowing ,
     }
     return render(request, "network/profile.html", context)
 
@@ -155,7 +166,47 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()
     ]
 
+#testing
+@login_required
+def followme(request):
+    if request.method == "POST":
+        user = request.POST.get(request.user)
+        followornot = request.POST.get("Followme")
 
+        if followornot == 'Followme':
+            try:
+                # add user to current user's following list
+                user = User.objects.get(username=user)
+                profile = Profile.objects.get(user=request.user)
+                profile.following.add(user)
+                profile.save()
+
+                # add current user to  user's follower list
+                profile = Profile.objects.get(user=user)
+                profile.follower.add(request.user)
+                profile.save()
+
+
+                return JsonResponse({'status': 201}, status=201 )
+            except:
+                return JsonResponse({}, status=404)
+        else:
+            try:
+                # add user to current user's following list
+                user = User.objects.get(username=user)
+                profile = Profile.objects.get(user=request.user)
+                profile.following.remove(user)
+                profile.save()
+
+                # add current user to  user's follower list
+                profile = Profile.objects.get(user=user)
+                profile.follower.remove(request.user)
+                profile.save()
+                return JsonResponse({'status': 201, 'followornot': "Follow", "follower_count": profile.follower.count()}, status=201)
+            except:
+                return JsonResponse({}, status=404)
+
+    return JsonResponse({}, status=400)
 
 
 
