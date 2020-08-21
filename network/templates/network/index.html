@@ -8,37 +8,45 @@
 
   <div class="container" style="width:90%; ">
       <h3>What are you thinking  {{request.user}}?</h3>
-      <form class="form-control" method="post" style="border: 2px solid #004d00 ;">
+      <form action="{% url 'network:post' request.user %}" method="post" style="border: 1px solid #e6ffff ;">
           {% csrf_token %}
           <br>
           <p>  {{ NewPostForm }} </p>
-          <p><button type="Submit" id="newpost" name="newpost">Post</button></p>
+          <br>
+          <div>
+             <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button>
+          </div>
           <br>
       </form>
   </div>
   <form>
-  {% csrf_token %}
+
   {% if AllPosts|length > 0 %}
       {% for A in AllPosts %}
           <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, white, gray,black );">
               <div class="row"  width="1700px">
                   <div class="col-lg-3">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username}} </a> </p>
-                      <br>
-
-                      <img src=" {{A.Avatar.url}} "  width="200">
-                      <br>
-                      </div>
-                      <div class="col-lg-4">
+                  </div>
+                  <div class="col-lg-4">
                            <p> {{A.Post}} </p>
+                  </div>
+                  <div class="col-lg-1" style="text-align: center;">
+                           {%if A.Likes == None%}
+                             <p> 0 <i class="fas fa-thumbs-up"></i></p>
+                           {% else %}
+                              <p> {{ A.Likes }}  <i class="fas fa-thumbs-up"></i></p>
+                           {% endif %}
+                  </div>
+                  <div class="col-lg-1" style="text-align: center;">
+                           {%if A.Unlikes  == None%}
+                                <p> 0  <i class="fas fa-thumbs-down"></i></p>
+                            {% else %}
+                                <p> {{ A.Unlikes }}  <i class="fas fa-thumbs-down"></i></p>
+                            {% endif %}
+
                       </div>
                       <div class="col-lg-3">
-
-                             <p> {{A.Likes}}  <i class="fas fa-thumbs-up"></i>
-                                 {{A.Unlikes}} <i class="fas fa-thumbs-down"></i>
-                             </p>
-                      </div>
-                      <div class="col-lg-2">
                          <p> {{A.Date}} </p>
                       </div>
                   </div>
