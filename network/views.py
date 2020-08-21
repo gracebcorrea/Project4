@@ -94,10 +94,17 @@ def profile(request,username):
     UserPosts = []
     TFollowers = 0
     TFollowing = 0
-    user = User.objects.get(username=request.user.username)
+    #user = User.objects.get(username=request.user.username)
+    searchuser = username
+    userid = User.objects.filter(username=searchuser).values('id')
 
-    profile = Profile.objects.filter(User=user)
-    print(f"Profile:  ",user, profile)
+    for u in userid:
+        User_id = int(u['id'])
+    profile = Profile.objects.filter(User=User_id )
+
+    print(f"Profile:  ", profile)
+
+
 
     for FS in profile:
         TFollowers = FS.Follower.all().count() #total followers
