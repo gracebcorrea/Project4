@@ -16,7 +16,8 @@ from .models import User, Profile, Posts
 
 
 class NewPostForm(forms.Form):
-    NewPost = forms.CharField(widget=forms.Textarea))
+    NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'150','text-align': 'center'}))
+
 
 def index(request):
 
@@ -27,13 +28,15 @@ def index(request):
 
         context={
             "AllPosts": result_list,
+            "NewPostForm":NewPostForm(),
+
         }
         return render(request, "network/index.html", context)
     else:
         context={
             "Message": "Please Login or join our Network",
         }
-        return render(request, "network/index.html", context)
+        return render(request, "network/login.html", context)
 
 
 def login_view(request):
