@@ -1,6 +1,7 @@
 import sqlite3, datetime, os, os.path, time
 from datetime import datetime
 
+from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError,connection, models
@@ -11,6 +12,9 @@ from django.urls import reverse,include, path
 
 from . import views
 from .models import User, Profile, Posts
+
+class NewPostForm(forms.Form):
+    NewPost = forms.CharField(widget=forms.Textarea)
 
 
 def index(request):
@@ -99,11 +103,6 @@ def profile(request):
     for FG in profile:
         TFollowing = FG.Following.all().count()
 
-
-    print(TFollowers,TFollowing)
-
-
-
     context={
         "Profiles":profile,
         "TotalFollowers":TFollowers,
@@ -114,8 +113,27 @@ def profile(request):
 
 @login_required
 def post_view(request):
+    if request.method == "POST":
 
-    return render(request, "network/index.html")
+        PV = NewPostForm(request.POST)
+        if PV.is_valid():
+            PV_user=request.user
+            PV_post=PV.cleaned_data["NewPost"]
+            PV_date=datetime.now()
+            try:
+                NewPost = Posts(User=PV_user  , Post=PV_post  , Date=PV_date)
+                NewPost.save()
+
+                ReloadPosts = allposts()
+                context={
+                    "AllPosts": ReloadPosts,
+                }
+                return render(request, "network/index.html", context)
+            except IntegrityError as e:
+                print(e)
+                return HttpResponse( "ERROR trying to save New Post."  )
+    else:
+        return render(request, "network/index.html")
 
 
 
