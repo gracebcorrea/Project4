@@ -6,57 +6,49 @@
 
   <div class="form-group" >
       <form >
-          {% csrf_token %}
-
-          {% for P  in Profiles %}
-          <div class="container" style="border:#004d00; width:90%">
-              <br>
-              <div class="row"  width="1700px">
-                  <div class="col-lg-2">
-                      <h3>{{P.User}}</h3>
-                  </div>
-                  <div class="col-lg-4">
-
+      {% csrf_token %}
+      {% for P  in Profiles %}
+            <div class="container" style="border:#004d00; width:90%">
+                 <br>
+                 <div class="row"  width="1700px">
+                      <div class="col-lg-2">
+                           <h3>{{P.User}}</h3>
+                      </div>
+                 <div class="col-lg-4">
                       <img src=" {{P.Avatar.url}} "  width="200">
-                  </div>
-                  <br>
+                 </div>
+                 <br>
                   <div class="col-lg-4">
-                    <h3>{{TotalFollowers}}  Total Followers</h3>
-                    <h3>{{TotalFollowing}}  Total Following</h3>
-
-
+                     <h3>{{TotalFollowers}}  Total Followers</h3>
+                     <h3>{{TotalFollowing}}  Total Following</h3>
                   </div>
-                  {%if request.user.username != {{P.User}}%}
-                  <div class="col-lg-2"  id="Follow" >
-                        <button type="Submit" id="Followme" name="Followme" onclick="Followme()">
+                  {%if request.user.username != P.User%}
+                      <div class="col-lg-2"  id="Follow" >
+                            <button type="Submit" id="Followme"  onclick="Followme()">
                             {% for U in UserFollowers%}
-                                {% if U %}
+                                {% if U.User == P.User %}
                                    UnFollow me
-
-
-
                                 {% else %}
-                                     Follow me
-                            {% endif %}
+                                   Follow me
+                                {% endif %}
                             {% endfor %}
-                        </button>
-                  </div>
-                  {% endif %,}
+                            </button>
+                      </div>
+                  {% endif %}
               </div>
               <hr>
-          </div>
-          <hr style="color : white;">
-         {% endfor%}
-         <div class="container" style="border:#004d00; width:90%">
-           <p> {{UserPosts}} </p>
+            </div>
+      {% endfor%}
+
+      <hr style="color : white;">
 
 
-        </div>
+      <div class="container" style="border:#004d00; width:90%">
+            {%for U in UserPosts %}
+                 <p> {{U}}  </p>
 
-
-
-
-
+            {% endfor %}
+      </div>
       </form>
   </div>
 
