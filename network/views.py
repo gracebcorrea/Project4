@@ -22,7 +22,7 @@ def index(request):
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
-        #print(result_list)
+        print(result_list)
 
         context={
             "AllPosts": result_list,
@@ -95,7 +95,7 @@ def profile(request):
     TFollowing = 0
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.filter(User=user)
-    #print(profile)
+    print(f"Profile:  ",profile)
 
     for FS in profile:
         TFollowers = FS.Follower.all().count()
