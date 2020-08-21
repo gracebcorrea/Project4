@@ -16,7 +16,7 @@ from .models import User, Profile, Posts
 
 
 class NewPostForm(forms.Form):
-    NewPost = forms.CharField(widget=forms.Textarea(attrs={  'width':'90%'} ))
+    NewPost = forms.CharField(widget=forms.Textarea))
 
 def index(request):
 
