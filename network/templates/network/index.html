@@ -6,17 +6,15 @@
   <h1>{{Message}}</h1>
 
 
-  <div class="container" style="width:90%; ">
-      <h3>What are you thinking  {{request.user}}?</h3>
+  <div class="container" >
+
       <form action="{% url 'network:post' request.user %}" method="post" style="border: 1px solid #e6ffff ;">
           {% csrf_token %}
-          <br>
-          <p>  {{ NewPostForm }} </p>
-          <br>
-          <br>
+          <p style="text-align:center;">
+            {{request.user}}
+            {{ NewPostForm }}
+            <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button></p>
       </form>
-           <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button>
-           <br>
   </div>
   <form>
 
