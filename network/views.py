@@ -13,9 +13,9 @@ from django.urls import reverse,include, path
 from . import views
 from .models import User, Profile, Posts
 
+
 class NewPostForm(forms.Form):
     NewPost = forms.CharField(widget=forms.Textarea)
-
 
 def index(request):
 
@@ -113,31 +113,27 @@ def profile(request):
 
 @login_required
 def post_view(request):
-    if request.method == "POST":
-
-        PV = NewPostForm(request.POST)
-        if PV.is_valid():
-            PV_user=request.user
-            PV_post=PV.cleaned_data["NewPost"]
-            PV_date=datetime.now()
-            try:
-                NewPost = Posts(User=PV_user  , Post=PV_post  , Date=PV_date)
-                NewPost.save()
-
-                ReloadPosts = allposts()
-                context={
-                    "AllPosts": ReloadPosts,
-                }
-                return render(request, "network/index.html", context)
-            except IntegrityError as e:
-                print(e)
-                return HttpResponse( "ERROR trying to save New Post."  )
-    else:
-        return render(request, "network/index.html")
-
-
-
-
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            PV = NewPostForm(request.POST)
+            if PV.is_valid():
+                PV_user=request.user
+                PV_post=PV.cleaned_data["NewPost"]
+                PV_date=datetime.now()
+                try:
+                    NewPost = Posts(User=PV_user  , Post=PV_post  , Date=PV_date)
+                    NewPost.save()
+                    ReloadPosts = allposts()
+                    context={
+                       "AllPosts": ReloadPosts,
+                       "NewPostForm":NewPostForm(),
+                    }
+                    return render(request, "network/index.html", context)
+                except IntegrityError as e:
+                    print(e)
+                    return HttpResponse( "ERROR trying to save New Post."  )
+        else:
+            return render(request, "network/index.html")
 
 def allposts():
     with connection.cursor() as cursor:
@@ -149,6 +145,7 @@ def allposts():
         results = dictfetchall(cursor)
 
     return results
+
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
