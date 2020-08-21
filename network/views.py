@@ -95,7 +95,7 @@ def profile(request):
     TFollowing = 0
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.filter(User=user)
-    print(profile)
+    #print(profile)
 
     for FS in profile:
         TFollowers = FS.Follower.all().count()
