@@ -5,6 +5,7 @@
   <hr>
   <h1>{{Message}}</h1>
 
+
   <div class="container" style="width:90%; ">
       <h3>What are you thinking  {{request.user}}?</h3>
       <form class="form-control" method="post" style="border: 2px solid #004d00 ;">
@@ -15,6 +16,8 @@
           <br>
       </form>
   </div>
+  <form>
+      {% csrf_token %}
   {% if AllPosts|length > 0 %}
       {% for A in AllPosts %}
           <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, white, gray,black );">
@@ -22,7 +25,8 @@
                   <div class="col-lg-3">
                       <p>   {{A.username}}  </p>
                       <br>
-                      <img src=" /media/{{A.Avatar.url}} "  width="200">
+
+                      <img src=" {{A.Avatar.url}} "  width="200">
                       <br>
                       </div>
                       <div class="col-lg-4">
@@ -41,5 +45,5 @@
               <hr>
       {% endfor %}
   {% endif %}
-
+  </form>
   {% endblock %}
