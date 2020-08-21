@@ -26,7 +26,7 @@
                         <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'network:profile' user.username%}">Profile</a>
+                      <a class="nav-link" href="{% url 'network:profile' user.username  %}">My Profile</a>
                     </li>
 
                 {% endif %}
