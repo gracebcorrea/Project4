@@ -126,6 +126,7 @@ def profile(request,username):
 
 
     context={
+        "User":searchuser,
         "Profiles":profile,
         "TotalFollowers":TFollowers,
         "TotalFollowing":TFollowing,
@@ -192,44 +193,17 @@ def dictfetchall(cursor):
 #testing
 @login_required
 def followme(request):
-    if request.method == "POST":
-        user = request.POST.get(request.user)
-        followornot = request.POST.get("Followme")
-        print(followornot)
-        if followornot == 'Followme':
-            try:
-                # add user to current user's following list
-                user = User.objects.get(username=user)
-                profile = Profile.objects.get(user=request.user)
-                profile.following.add(user)
-                profile.save()
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        print(data)
 
-                # add current user to  user's follower list
-                profile = Profile.objects.get(user=user)
-                profile.follower.add(request.user)
-                profile.save()
+    #    if data.get("followme") is not None: #marca seguidor desmarca seguidor
+    #        Profile.Follower = data["Follower"]
 
-
-                return JsonResponse({'status': 201}, status=201 )
-            except:
-                return JsonResponse({}, status=404)
-        else:
-            try:
-                # add user to current user's following list
-                user = User.objects.get(username=user)
-                profile = Profile.objects.get(user=request.user)
-                profile.following.remove(user)
-                profile.save()
-
-                # add current user to  user's follower list
-                profile = Profile.objects.get(user=user)
-                profile.follower.remove(request.user)
-                profile.save()
-                return JsonResponse({'status': 201, 'followornot': "Follow", "follower_count": profile.follower.count()}, status=201)
-            except:
-                return JsonResponse({}, status=404)
-
-    return JsonResponse({}, status=400)
+    #    if data.get("followme") is not None: #marca seguindo,desmarca seguindo
+    #        Profile.Following = data["Following"]
+    #    Profile.save()
+    return HttpResponse(status=204)
 
 
 
