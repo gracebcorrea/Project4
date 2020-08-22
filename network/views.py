@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse,include, path
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 
 from . import views
@@ -94,6 +95,7 @@ def register(request):
 """__________________________________________________________________________________________________"""
 
 @login_required
+@csrf_exempt
 def profile(request,username):
     profile= []
     UserPosts = []
@@ -192,6 +194,7 @@ def dictfetchall(cursor):
 
 #testing
 @login_required
+@csrf_exempt
 def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
