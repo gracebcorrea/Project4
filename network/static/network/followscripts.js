@@ -1,8 +1,12 @@
+document.querySelector('#followme').addEventListener('click', () => followme());
 
-function followme(profile_id,user){
+function followme(){
   const url = "followme";
-  console.log("Followme:");
-  console.log(`${profile_id}`,`${user}`);
+  console.log("Follow me:");
+  profile_id = document.querySelector('#profile_id').value;
+  profile_user = document.querySelector('#profile_user').value;
+
+  console.log(`${profile_id}`,`${profile_user}`);
   fetch(url, {
       method: "PUT",
       body: JSON.stringify({
