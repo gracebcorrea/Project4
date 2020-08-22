@@ -32,7 +32,10 @@ function followme(profid, profSearcher, profForN) {
       };
   })
   .catch((error) => {
-        console.error('Error:', error)
+        console.error(this.props.url, status, err.toString())
+
+
+        console.warn(xhr.responseText)
   })
 }
 
