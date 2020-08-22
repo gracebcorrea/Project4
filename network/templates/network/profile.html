@@ -1,7 +1,8 @@
 {% extends "network/layout.html" %}
 {% load static %}
 {% block body %}
-  <h1>{{ request.user.username }}´s Profile</h1>
+  <!--<h1>{{ request.user.username }}´s Profile</h1>-->
+  <h1>{{ User }}´s Profile</h1>
   <hr>
 
   <div class="form-group" >
@@ -13,6 +14,7 @@
                  <div class="row"  width="1700px" style="text-align: center;">
                       <div class="col-lg-2">
                            <h3>{{P.User}}</h3>
+
                       </div>
                       <div class="col-lg-4">
                            <img src=" {{P.Avatar.url}} "  width="200" style="text-align: center;">
@@ -28,22 +30,22 @@
                         {% if ShowFollowornot == "yes" %}
                                <div class="col-lg-3"  id="Follow" style="text-align: center;">
                                     <br>
-                                    <button type="Submit" id="Followme"  onclick="Followme()" >
-                                      {%if user in UserFollowers%}
-                                          Unfollow me
+                                    <button type="Submit" id="Followme" name="followme" onclick="Followme({{P.id}},{{P.User}})" >
+                                      {%if User in UserFollowers%}
+                                          Unfollow
                                         {%else%}
-                                          Follow me
+                                          Follow
                                       {%endif%}
                                     </button>
                                     <br>
-                                    {%if user in UserFollowers %}
-                                       <input type="hidden" id="unfollowuser" name="unfollowuser" value={{user}}>
+                                    {%if User in UserFollowers %}
+                                       <input type="hidden" id="unfollowuser" name="unfollowuser" value={{User}}>
                                        <input type="hidden" id="unfollow" name="unfollow" value="unfollow" >
                                     {% else %}
-                                       <input type="hidden" id="followuser" name="followuser" value={{user}}>
+                                       <input type="hidden" id="followuser" name="followuser" value={{User}}>
                                        <input type="hidden" id="follow" name="follow" value="follow" >
                                     {% endif %}
-
+                                       <input type="hidden" id="User" name="User" value={{User}}>
 
                                </div>
                         {% endif %}
