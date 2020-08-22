@@ -18,7 +18,7 @@ from .models import User, Profile, Posts
 
 
 class NewPostForm(forms.Form):
-    NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'110','text-align': 'center' ,'flex-wrap': 'wrap'}))
+    NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'140','text-align': 'center' }))
 
 
 def index(request):
