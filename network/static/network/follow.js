@@ -7,17 +7,18 @@ function followme() {
   console.log("Follow me:");
 //  profile_id = document.querySelector('#profile_id').value;
 //  profile_user = document.querySelector('#profile_user').value;
-profile_id = document.querySelector('#profile_id').value;
-profile_user = document.querySelector('#profile_user').value;
-profile_ForN = document.querySelector('#follow_me').value;
+profile_id = document.getElementById('profile_id').value;
+profile_user = document.getElementById('profile_user').value;
+profile_ForN = document.getElementById('follow_me').value;
 
-  console.log("Values are:", `${profile_id}`,`${profile_user}`);
+  console.log("Values are:", `${profile_id}`,`${profile_user}`, `${profile_ForN}`);
 
   fetch(url, {
            method: "PUT",
            body: JSON.stringify({
            id: `${profile_id}`,
-           follower: `${user}`,
+           follower: `${profile_user}`,
+           fornot: `${profile_ForN}`,
         })
   })
   .then((response) => response.json())
