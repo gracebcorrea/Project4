@@ -1,5 +1,4 @@
-import sqlite3, datetime, os, os.path, time
-from datetime import datetime
+import sqlite3, datetime, os, os.path, time, json, re, requests
 
 from django import forms
 from django.contrib import admin
@@ -215,18 +214,19 @@ def followme(request):
         followornot = request.POST.get('fornot')  #"Follow" or "Unfollow"
         print(profileid,follower,followornot)
 
-        ProfToChange = Profile.objects.get(id=profileid)
+        ProfToChange = Profile.objects.get(data['id'])
         print("Profile to change", ProfToChange )
 
         try:
             if followornot == "Follow":
-               ProfToChange.Follower.add(data["follower"])
+               ProfToChange.Follower.add(data['follower'])
             if followornot == "Unfollow":
-                ProfToChange.Follower.remove(data["follower"])
+                ProfToChange.Follower.remove(data['follower'])
             ProfToChange.save()
-            return JsonResponse({'status': 201, "TFollowers": profile.follower.count()}, status=201)
+
+            return JsonResponse({'status': 201, "TFollowers": profile.Follower.all().count()}, status=201)
         except:
-            return JsonResponse({}, status=404)
+            return JsonResponse({"error": "GET or PUT request required." }, status=400)
 
 
 
