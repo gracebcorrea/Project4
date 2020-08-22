@@ -109,13 +109,13 @@ def profile(request,username):
     profile = Profile.objects.filter(User=User_id )
 
     UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
-    print(UserPosts)
+    #print(UserPosts)
 
     for FS in profile:
         TFollowers = FS.Follower.all().count() #total followers
         UFollowers = FS.Follower.all() #followers names
 
-    print(TFollowers,UFollowers)
+    #print(TFollowers,UFollowers)
 
     for FG in profile:
         TFollowing = FG.Following.all().count() #total following
