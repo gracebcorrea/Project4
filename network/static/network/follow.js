@@ -29,7 +29,7 @@ function followme(profid, profSearcher, profForN) {
   .then((response) => {
       if (response.status == 201) {
         console.log("adicionar novo seguidor no total")
-      }
+      };
   })
   .catch((error) => {
         console.error('Error:', error)
