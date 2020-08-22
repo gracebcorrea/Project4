@@ -20,7 +20,7 @@
 
   {% if AllPosts|length > 0 %}
       {% for A in AllPosts %}
-          <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, white, gray,	 #000033 );">
+          <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
               <div class="row"  width="1700px">
                   <div class="col-lg-3">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
