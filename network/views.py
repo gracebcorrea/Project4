@@ -212,8 +212,8 @@ def followme(request):
         follower = request.POST.get('follower')
         followornot = request.POST.get('fornot')
 
-        print(data)
-        print(profileid,follower)
+        print("JSON DATA",data)
+        print(profileid,follower,followornot)
         """
         try:
             if data.get("followme") is not None: #marca seguidor desmarca seguidor
