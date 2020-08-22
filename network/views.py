@@ -209,24 +209,26 @@ def dictfetchall(cursor):
 def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
+        print("JSON DATA")
         profileid = request.POST.get('id')
         follower = request.POST.get('follower')
-        followornot = request.POST.get('fornot')
-
-        print("JSON DATA")
+        followornot = request.POST.get('fornot')  #"Follow" or "Unfollow"
         print(profileid,follower,followornot)
-        """
-        try:
-            if data.get("followme") is not None: #marca seguidor desmarca seguidor
-               Profile.Follower = data["Follower"]
 
-            if data.get("followme") is not None: #marca seguindo,desmarca seguindo
-               Profile.Following = data["Following"]
-            Profile.save()
+        ProfToChange = Profile.objects.get(id=profileid)
+        print("Profile to change", ProfToChange )
+
+        try:
+            if followornot == "Follow":
+               ProfToChange.Follower.add(data["follower"])
+            if followornot == "Unfollow":
+                ProfToChange.Follower.remove(data["follower"])
+            ProfToChange.save()
+            return JsonResponse({'status': 201, "TFollowers": profile.follower.count()}, status=201)
         except:
             return JsonResponse({}, status=404)
-        """
-    
+
+
 
     return HttpResponse(status=204)
 
