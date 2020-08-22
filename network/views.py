@@ -209,18 +209,14 @@ def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
         print("JSON DATA")
-        profileid = request.POST.get('id')
-        follower = request.POST.get('follower')
-        followornot = request.POST.get('fornot')  #"Follow" or "Unfollow"
-        print(profileid,follower,followornot)
 
-        ProfToChange = Profile.objects.get(data['id'])
-        print("Profile to change", ProfToChange )
+        ProfToChange = Profile.objects.get(User=data['id'])
+        print("Profile to change:", ProfToChange )
 
         try:
-            if followornot == "Follow":
+            if data['fornot'] == "Follow":
                ProfToChange.Follower.add(data['follower'])
-            if followornot == "Unfollow":
+            if data['fornot'] == "Unfollow":
                 ProfToChange.Follower.remove(data['follower'])
             ProfToChange.save()
 
