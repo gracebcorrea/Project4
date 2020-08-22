@@ -10,7 +10,7 @@
 
   <div class="form-group" >
       <form >
-
+    <!--  {% csrf_token %} -->
       {% for P  in Profiles %}
             <div class="container" style="border:#004d00; width:90%" >
                  <br>
@@ -81,6 +81,6 @@
 </div>
 
       {% block script %}
-        <script type="text/javascript"  src="{% static 'network/follow.js'  %}"  async></script>
+        <script type="text/javascript"  src="{% static 'network/follow.js'  %}" ></script>
       {% endblock %}
 {% endblock %}
