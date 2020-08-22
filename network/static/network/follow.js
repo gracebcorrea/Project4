@@ -31,12 +31,7 @@ function followme(profid, profSearcher, profForN) {
         console.log("adicionar novo seguidor no total")
       };
   })
-  .catch((error) => {
-        console.error(this.props.url, status, err.toString())
-
-
-        console.warn(xhr.responseText)
-  })
+  
 }
 
 
