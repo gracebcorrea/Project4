@@ -198,14 +198,24 @@ def dictfetchall(cursor):
 def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
+        profileid = request.POST.get('profileid')
+        follower = request.POST.get('follower')
+
         print(data)
+        print(profileid,follower)
+        """
+        try:
+            if data.get("followme") is not None: #marca seguidor desmarca seguidor
+               Profile.Follower = data["Follower"]
 
-    #    if data.get("followme") is not None: #marca seguidor desmarca seguidor
-    #        Profile.Follower = data["Follower"]
+            if data.get("followme") is not None: #marca seguindo,desmarca seguindo
+               Profile.Following = data["Following"]
+            Profile.save()
+        except:
+            return JsonResponse({}, status=404)
+        """
 
-    #    if data.get("followme") is not None: #marca seguindo,desmarca seguindo
-    #        Profile.Following = data["Following"]
-    #    Profile.save()
+
     return HttpResponse(status=204)
 
 
