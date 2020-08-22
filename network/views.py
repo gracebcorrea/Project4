@@ -9,6 +9,7 @@ from django.db import IntegrityError,connection, models
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse,include, path
+from django.core.paginator import Paginator
 
 
 from . import views
@@ -118,8 +119,6 @@ def profile(request,username):
         TFollowing = FG.Following.all().count() #total following
         UFollowing = FG.Following.all() #following names
 
-
-
     if request.user.id == User_id:
         ShowFollowornot = "no"
     else:
@@ -196,7 +195,7 @@ def followme(request):
     if request.method == "POST":
         user = request.POST.get(request.user)
         followornot = request.POST.get("Followme")
-
+        print(followornot)
         if followornot == 'Followme':
             try:
                 # add user to current user's following list
