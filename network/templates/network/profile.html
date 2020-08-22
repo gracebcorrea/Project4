@@ -10,32 +10,52 @@
       {% for P  in Profiles %}
             <div class="container" style="border:#004d00; width:90%">
                  <br>
-                 <div class="row"  width="1700px">
+                 <div class="row"  width="1700px" style="text-align: center;">
                       <div class="col-lg-2">
                            <h3>{{P.User}}</h3>
                       </div>
                       <div class="col-lg-4">
-                           <img src=" {{P.Avatar.url}} "  width="200">
+                           <img src=" {{P.Avatar.url}} "  width="200" style="text-align: center;">
                       </div>
 
-                       <div class="col-lg-4">
-                            <h3>{{TotalFollowers}}  Total Followers</h3>
-                            <h3>{{TotalFollowing}}  Total Following</h3>
+                       <div class="col-lg-3" style="text-align: center;">
+                            <h3>Total Followers    </h3>
+                            <h3 >{{TotalFollowers}} </h3>
+                            <br>
+                            <h3>Total Following    </h3>
+                            <h3>{{TotalFollowing}} </h3>
                         </div>
                         {% if ShowFollowornot == "yes" %}
-                               <div class="col-lg-2"  id="Follow" >
-                                    <button type="Submit" id="Followme"  onclick="Followme()" >Follow Me
-
+                               <div class="col-lg-3"  id="Follow" style="text-align: center;">
+                                    <br>
+                                    <button type="Submit" id="Followme"  onclick="Followme()" >
+                                      {%if user in UserFollowers%}
+                                          Unfollow me
+                                        {%else%}
+                                          Follow me
+                                      {%endif%}
                                     </button>
+                                    <br>
+                                    {%if user in UserFollowers %}
+                                       <input type="hidden" id="unfollowuser" name="unfollowuser" value={{user}}>
+                                       <input type="hidden" id="unfollow" name="unfollow" value="unfollow" >
+                                    {% else %}
+                                       <input type="hidden" id="followuser" name="followuser" value={{user}}>
+                                       <input type="hidden" id="follow" name="follow" value="follow" >
+                                    {% endif %}
+
+
                                </div>
                         {% endif %}
+
               </div>
               <hr>
             </div>
       {% endfor %}
 
       <hr style="color : white;">
-
+    </form>
+</div>
 
       <div class="container" style="border:#004d00; width:90%">
           {%for U in UserPosts %}
@@ -70,12 +90,11 @@
 
           {% endfor %}
       </div>
-      </form>
-  </div>
+
 
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript"  src="{% static 'network/followme.js'  %}"></script>
+    <script type="text/javascript"  src="{% static 'network/followscripts.js'  %}"></script>
 
 {% endblock %}
