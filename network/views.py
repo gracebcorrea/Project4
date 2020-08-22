@@ -127,11 +127,12 @@ def profile(request,username):
         btnfollow = "Unfollow"
     else:
         btnfollow = "Follow"
-    print("Usuário logado :", request.user.id ,request.user)
-    print("Perfil Mostrado :", User_id)
-    print("Mostra botao foloww ? ", ShowFollowornot)
-    print("Seguidores :", UFollowers)
-    print("Opcao botao follow :" ,btnfollow )
+
+    print("Logged User :", request.user.id ,request.user)
+    print("Profile Shown :", User_id)
+    print("Show follow button ? ", ShowFollowornot)
+    print("Followers :", UFollowers)
+    print("Follow or Unfollow ? :" ,btnfollow )
 
 
     context={
@@ -207,8 +208,9 @@ def dictfetchall(cursor):
 def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
-        profileid = request.POST.get('profileid')
+        profileid = request.POST.get('id')
         follower = request.POST.get('follower')
+        followornot = request.POST.get('fornot')
 
         print(data)
         print(profileid,follower)
