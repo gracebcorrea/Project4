@@ -115,7 +115,7 @@ def profile(request,username):
         TFollowers = FS.Follower.all().count() #total followers
         UFollowers = FS.Follower.all() #followers names
 
-    #print(TFollowers,UFollowers)
+    print(TFollowers,UFollowers)
 
     for FG in profile:
         TFollowing = FG.Following.all().count() #total following
@@ -125,6 +125,11 @@ def profile(request,username):
         ShowFollowornot = "no"
     else:
         ShowFollowornot = "yes"
+        if User_id in UFollowers:
+            btnfollow = "Unfollow"
+        else:
+            btnfollow = "Follow"
+
 
 
     context={
@@ -136,6 +141,7 @@ def profile(request,username):
         "UserFollowers":UFollowers,
         "Userfollowing":UFollowing ,
         "ShowFollowornot" :ShowFollowornot,
+        "btnfollow" : btnfollow,
     }
     return render(request, "network/profile.html", context)
 
