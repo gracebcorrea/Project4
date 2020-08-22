@@ -220,7 +220,7 @@ def followme(request):
                 ProfToChange.Follower.remove(data['follower'])
             ProfToChange.save()
 
-            return JsonResponse({'status': 201, "TFollowers": profile.Follower.all().count()}, status=201)
+            return JsonResponse({'status': 201},  status=201)
         except:
             return JsonResponse({"error": "GET or PUT request required." }, status=400)
 
