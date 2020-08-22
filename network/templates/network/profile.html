@@ -7,13 +7,14 @@
 
   <div class="form-group" >
       <form >
-      {% csrf_token %}
+
       {% for P  in Profiles %}
-            <div class="container" style="border:#004d00; width:90%">
+            <div class="container" style="border:#004d00; width:90%" >
                  <br>
                  <div class="row"  width="1700px" style="text-align: center;">
-                      <div class="col-lg-2">
+                      <div class="col-lg-2" >
                            <h3>{{P.User}}</h3>
+
 
                       </div>
                       <div class="col-lg-4">
@@ -30,7 +31,9 @@
                         {% if ShowFollowornot == "yes" %}
                                <div class="col-lg-3"  id="Follow" style="text-align: center;">
                                     <br>
-                                    <button type="Submit" id="Followme" name="followme" onclick="Followme({{P.id}},{{P.User}})" >
+                                    <input type="hidden" id="profile_id" name="profile_id" value={{P.id}}>
+                                    <input type="hidden" id="profile_user" name="profile_user" value={{User}}>
+                                    <button type="Submit" id="followme" name="followme"  >
                                       {%if User in UserFollowers%}
                                           Unfollow
                                         {%else%}
@@ -38,14 +41,7 @@
                                       {%endif%}
                                     </button>
                                     <br>
-                                    {%if User in UserFollowers %}
-                                       <input type="hidden" id="unfollowuser" name="unfollowuser" value={{User}}>
-                                       <input type="hidden" id="unfollow" name="unfollow" value="unfollow" >
-                                    {% else %}
-                                       <input type="hidden" id="followuser" name="followuser" value={{User}}>
-                                       <input type="hidden" id="follow" name="follow" value="follow" >
-                                    {% endif %}
-                                       <input type="hidden" id="User" name="User" value={{User}}>
+
 
                                </div>
                         {% endif %}
