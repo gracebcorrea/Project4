@@ -16,5 +16,6 @@ urlpatterns = [
 
     path("profile/<str:username>",views.profile, name="profile"),
     path("post/<str:username>",views.post_view, name="post"),
+    path('followme/', views.followme, name="followme"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
