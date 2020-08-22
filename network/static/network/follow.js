@@ -12,18 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-function followme(profile_id, profile_Searcher, profile_ForN) {
+function followme(profid, profSearcher, profForN) {
+  console.log("Values are:",`${profid}`, `${profSearcher}`,`${profForN}`);
 
-  const url = "/followme";
-  alert("Follow me:");
-  console.log("Values are:", `${profile_id}`,`${profile_user}`, `${profile_ForN}`);
-
-  fetch(url, {
+  fetch("/followme", {
           method: "PUT",
           body: JSON.stringify({
-                id: `${profile_id}`,
-                follower: `${profile_Searcher}`,
-                fornot: `${profile_ForN}`,
+                id: `${profid}`,
+                follower: `${profSearcher}`,
+                fornot: `${profForN}`,
           })
   })
   .then((response) => response.json())
@@ -32,6 +29,9 @@ function followme(profile_id, profile_Searcher, profile_ForN) {
         console.log("adicionar novo seguidor no total")
       }
   })
+  .catch((error) => {
+        console.error('Error:', error)
+      });
 }
 
 
