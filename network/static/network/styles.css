@@ -22,3 +22,8 @@ h1 {
   <i class="far fa-thumbs-down"></i>
 
 }*/
+
+@media screen and (max-width: 600px)
+       {  body { background-color: White;
+                 color: #000033; }
+       }
