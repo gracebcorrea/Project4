@@ -27,18 +27,18 @@ function followme(profid, profSearcher, profForN) {
   })
   .then((response) => response.json())
   .then((response) => {
+      console.log(response.status);
+      console.log(response.text());
       if (response.status == 201) {
         console.log("adicionar novo seguidor no total")
       }
       else{
          throw 'Error';
-
       }
-      return response.json()
-      
-  })
-
+      return response.json()}
+  )
 }
+
 
 
 function following(){
