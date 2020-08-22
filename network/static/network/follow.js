@@ -1,17 +1,19 @@
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('#followme').addEventListener('click', () => followme());
-});
+document.querySelector('#followme').addEventListener('click', function() {
+        console.log('Follow / UnFollow clicked!');
+        //profile id in view
+        profile_id = document.getElementById('profile_id').value;
+        //profile name in view
+        profile_Searcher = document.getElementById('profile_Searcher').value;
+        //action
+        profile_ForN = document.getElementById('follow_me').value;
+        followme(`${profile_id}`, `${profile_Searcher}`,`${profile_ForN}`);
 
-function followme() {
+        });
+
+function followme(profile_id,profile_Searcher,profile_ForN) {
 
   const url = "/followme";
   console.log("Follow me:");
-  //profile id in view
-  profile_id = document.getElementById('profile_id').value;
-  //profile name in view
-  profile_Searcher = document.getElementById('profile_Searcher').value;
-  //action
-  profile_ForN = document.getElementById('follow_me').value;
 
   console.log("Values are:", `${profile_id}`,`${profile_user}`, `${profile_ForN}`);
 
