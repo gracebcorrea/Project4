@@ -18,7 +18,7 @@ from .models import User, Profile, Posts
 
 
 class NewPostForm(forms.Form):
-    NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'150','text-align': 'center'}))
+    NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'150','text-align': 'center' ,'flex-wrap': 'wrap'}))
 
 
 def index(request):
@@ -125,23 +125,25 @@ def profile(request,username):
         ShowFollowornot = "no"
     else:
         ShowFollowornot = "yes"
-        if User_id in UFollowers:
-            btnfollow = "Unfollow"
-        else:
-            btnfollow = "Follow"
 
+    if request.user.id in UFollowers:
+        btnfollow = "Unfollow"
+    else:
+        btnfollow = "Follow"
 
+        print(btnfollow)
 
     context={
         "User":searchuser,
         "Profiles":profile,
         "TotalFollowers":TFollowers,
         "TotalFollowing":TFollowing,
-        "UserPosts": UserPosts,
-        "UserFollowers":UFollowers,
-        "Userfollowing":UFollowing ,
         "ShowFollowornot" :ShowFollowornot,
         "btnfollow" : btnfollow,
+        "UserFollowers":UFollowers,
+        "Userfollowing":UFollowing ,
+        "UserPosts": UserPosts,
+
     }
     return render(request, "network/profile.html", context)
 
