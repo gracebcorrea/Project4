@@ -213,7 +213,7 @@ def followme(request):
         follower = request.POST.get('follower')
         followornot = request.POST.get('fornot')
 
-        print("JSON DATA",data)
+        print("JSON DATA")
         print(profileid,follower,followornot)
         """
         try:
@@ -226,7 +226,7 @@ def followme(request):
         except:
             return JsonResponse({}, status=404)
         """
-
+    
 
     return HttpResponse(status=204)
 
