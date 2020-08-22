@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('#Follow').addEventListener('click', function() {
+  document.querySelector('#Follow').addEventListener('click', function(e) {
+        e.preventDefault();
+
         console.log('Follow / UnFollow clicked!');
         //profile id in view
         profile_id = document.getElementById('profile_id').value;
@@ -31,7 +33,7 @@ function followme(profid, profSearcher, profForN) {
   })
   .catch((error) => {
         console.error('Error:', error)
-      });
+  })
 }
 
 
