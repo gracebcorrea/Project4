@@ -7,8 +7,9 @@ function followme() {
   console.log("Follow me:");
 //  profile_id = document.querySelector('#profile_id').value;
 //  profile_user = document.querySelector('#profile_user').value;
-profile_id = document.getElementById('profile_id').value;
-profile_user = document.getElementById('profile_user').value;
+profile_id = document.querySelector('#profile_id').value;
+profile_user = document.querySelector('#profile_user').value;
+profile_ForN = document.querySelector('#follow_me').value;
 
   console.log("Values are:", `${profile_id}`,`${profile_user}`);
 
