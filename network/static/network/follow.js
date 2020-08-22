@@ -1,4 +1,5 @@
-document.querySelector('#followme').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('#Follow').addEventListener('click', function() {
         console.log('Follow / UnFollow clicked!');
         //profile id in view
         profile_id = document.getElementById('profile_id').value;
@@ -9,12 +10,12 @@ document.querySelector('#followme').addEventListener('click', function() {
         followme(`${profile_id}`, `${profile_Searcher}`,`${profile_ForN}`);
 
         });
+});
 
-function followme(profile_id,profile_Searcher,profile_ForN) {
+function followme(profile_id, profile_Searcher, profile_ForN) {
 
   const url = "/followme";
-  console.log("Follow me:");
-
+  alert("Follow me:");
   console.log("Values are:", `${profile_id}`,`${profile_user}`, `${profile_ForN}`);
 
   fetch(url, {
