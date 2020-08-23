@@ -179,13 +179,15 @@ def post_view(request,username):
 
             return render(request, "network/index.html", context)
 
-def following():
+def following_view():
 
 
 
-    
+    context = {
+         "Following": result_list,
+    }
 
-    return render(request, "network/following.html")
+    return render(request, "network/following.html", context )
 
 
 def allposts():
