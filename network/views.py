@@ -220,22 +220,29 @@ def followme(request):
 
         ProfToChange1 = Profile.objects.get(User=data['id']) #profile id
         ProfToChange2 = Profile.objects.get(User=data['follower'])
-        print("Profile to change 1:", ProfToChange1)
-        print("Profile to change 2:", ProfToChange2)
+
 
         try:
+            print("Profile to change 1:", ProfToChange1)
+            print("Profile to change 2:", ProfToChange2)
+
             if data['fornot'] == "Follow": #Follow our unfollow
                ProfToChange1.Follower.add(data['follower'])  #Follower id add
+               ProfToChange1.save()
+               print(f"Follow",ProfToChange1.Follower)
+
                ProfToChange2.Following.add(data['id']) #Following id add
+               ProfToChange2.save()
+               print(f"Follow",ProfToChange2.Following)
 
             if data['fornot'] == "Unfollow":
                 ProfToChange1.Follower.remove(data['follower'])
+                ProfToChange1.save()
+                print(f"UFollow",ProfToChange1.Follower)
+
                 ProfToChange1.Follower.remove(data['id'])
-
-            ProfToChange1.save()
-            ProfToChange2.save()
-
-
+                ProfToChange2.save()
+                print(f"UFollow",ProfToChange2.Following)
 
             return JsonResponse({"message": "Followers successfully changed."}, status=201)
         except:
