@@ -26,6 +26,11 @@
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
           <br>
+        <div class="form-group" style="margin:auto;">
+              {{CreateProfileForm}}
+        </div>
+        <br>
+
         <div class="form-group" style="text-align: center;">
              <input class="btn btn-primary" type="submit" value="Register">
              Already have an account? <a href="{% url 'network:login' %}">Log In here.</a>
