@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError,connection, models
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse,include, path
 from django.core.paginator import Paginator
@@ -233,14 +233,9 @@ def followme(request):
                 ProfToChange1.Follower.remove(data['id'])
             ProfToChange1.save()
 
-            print(Profile.TotalFollowers(),Profile.TotalFollowing() )
 
 
-            return JsonResponse({'status': 201,
-                                 'TotalFollowers':Profile.TotalFollowers(),
-                                 'TotalFollowing':Profile.TotalFollowing(),
-
-                                 },  status=201)
+            return JsonResponse({"message": "Followers successfully."}, status=201)
         except:
             return JsonResponse({"error": "GET or PUT request required." }, status=400)
 
