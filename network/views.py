@@ -78,37 +78,44 @@ def register(request):
             return render(request, "network/register.html", {
                 "message": "Passwords must match."
             })
-
-
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
 
-
-            NP = CreateProfileForm(request.POST)
-            if NP.is_valid():
-
-                NP_picture = NP.cleaned_data["ProfPicture"]
-                NP_id = User.objects.filter(username=username).values('id')
-                for u in Userid:
-                    NP_id = int(u['id'])
-
-                newprofile=Profile.objects.create_user(User=NP_id, Avatar=NP_picture)
-                newprofile.save()
-
-
         except IntegrityError:
             return render(request, "network/register.html", {
                 "message": "Username already taken."
             })
+
+        print(user)
+
+        NP = CreateProfileForm(request.POST)
+        if NP.is_valid():
+            NP_picture = NP.cleaned_data["ProfPicture"]
+            NP_id = User.objects.filter(username=username).values('id')
+            print(NP_id )
+            for N in NP_id:
+                NP_id = int(u['id'])
+                print(NP_id)
+                try:
+                   newprofile = Profile.objects.create_user(User= NP_id, Avatar=NP_picture)
+                   newprofile.save()
+                   print(newprofile)
+                except:
+                    return render(request, "network/register.html", {
+                        "message": "We couldn´t create your profile , sorry." })
+
+
+
+
+
+
         login(request, user)
         return HttpResponseRedirect(reverse("network:index"))
     else:
         context = {
            "CreateProfileForm": CreateProfileForm(),
-
-
         }
         return render(request, "network/register.html" , context)
 
