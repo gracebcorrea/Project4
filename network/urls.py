@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 
 
 from . import views
-from .views import index, login_view, logout_view, register, profile, post_view
+from .views import index, login_view, logout_view, register, profile, post_view, followme, following_view
 
 app_name = 'network'
 urlpatterns = [
@@ -12,7 +12,6 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
-
 
     path("profile/<str:username>",views.profile, name="profile"),
     path("post/<str:username>",views.post_view, name="post"),
