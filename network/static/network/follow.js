@@ -30,7 +30,8 @@ function followme(profid, profSearcher, profForN) {
       console.log(response.status);
       console.log(response.text());
       if (response.status == 201) {
-        console.log("adicionar novo seguidor no total")
+        console.log("Total followers changed");
+        location.reload();
       }
       else{
          throw 'Error';
