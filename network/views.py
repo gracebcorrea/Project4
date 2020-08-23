@@ -194,7 +194,6 @@ def following_view(request):
     Post_list = []
     if request.user.is_authenticated:
         Post_list = Posts.objects.all()
-        print("LISTA DE TODOS OS POSTS",Post_list)
     else:
         context={
             "Message": "Please Login or join our Network",
@@ -209,9 +208,13 @@ def following_view(request):
     print("SEGUINDO : ",UFollowing )
 
     for Post in Post_list:
-        for U in UFollowing:
-            if U in Post:
-                FPL.append(Post)
+        P=Post
+        print(P)
+        for User in UFollowing:
+            U=User
+            print(U)
+            if U in P:
+                FPL.append(P)
 
     print(FPL)
 
