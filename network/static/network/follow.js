@@ -31,9 +31,9 @@ function followme(profid, profusername, searchid, searchname, profForN) {
   .then((response) => response.json())
   .then((response) => {
       console.log(response.status);
-      console.log(response.text());
       if (response.status == 201) {
         console.log("Get Profile New Data");
+        window.location.reload(true);
 
       }
       else{
