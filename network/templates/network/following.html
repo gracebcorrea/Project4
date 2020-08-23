@@ -1,25 +1,14 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-  <h1>All Posts</h1>
+  <h1>Following </h1>
   <hr>
   <h1>{{Message}}</h1>
 
 
   <div class="container" >
 
-      <form action="{% url 'network:post' request.user %}" method="post" style="border: 1px solid #e6ffff ;">
-          {% csrf_token %}
-          <p style="text-align:center;">
-            {{request.user |title}}
-            {{ NewPostForm }}
-            <br>
-            <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button></p>
-      </form>
-  </div>
-  <form>
-
-  {% if AllPosts|length > 0 %}
+    {% if Following|length > 0 %}
       {% for F in Following %}
           <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
               <div class="row"  width="1700px">
@@ -52,5 +41,5 @@
               <hr>
       {% endfor %}
   {% endif %}
-  </form>
+
   {% endblock %}
