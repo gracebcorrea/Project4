@@ -88,28 +88,19 @@ def register(request):
                 "message": "Username already taken."
             })
 
-        print(user)
+        print("New User:", user)
 
         NP = CreateProfileForm(request.POST)
         if NP.is_valid():
             NP_picture = NP.cleaned_data["ProfPicture"]
-            NP_id = User.objects.filter(username=username).values('id')
-            print(NP_id )
-            for N in NP_id:
-                NP_id = int(u['id'])
-                print(NP_id)
-                try:
-                   newprofile = Profile.objects.create_user(User= NP_id, Avatar=NP_picture)
-                   newprofile.save()
-                   print(newprofile)
-                except:
-                    return render(request, "network/register.html", {
+            NP_user = user
+            try:
+               newprofile = Profile.objects.create_user(User=NP_user, Avatar=NP_picture)
+               newprofile.save()
+               print("New Profile: ",newprofile)
+            except:
+                return render(request, "network/register.html", {
                         "message": "We couldn´t create your profile , sorry." })
-
-
-
-
-
 
         login(request, user)
         return HttpResponseRedirect(reverse("network:index"))
@@ -254,16 +245,11 @@ def following_view():
 def followme(request):
     if request.method == "PUT":
         data = json.loads(request.body)
-        print("JSON DATA")
 
         ProfToChange1 = Profile.objects.get(User=data['id']) #profile id
         ProfToChange2 = Profile.objects.get(User=data['follower'])
 
-
         try:
-            print("Profile to change 1:", ProfToChange1)
-            print("Profile to change 2:", ProfToChange2)
-
             if data['fornot'] == "Follow": #Follow our unfollow
                ProfToChange1.Follower.add(data['follower'])  #Follower id add
                ProfToChange1.save()
@@ -281,8 +267,6 @@ def followme(request):
             return JsonResponse({"message": "Followers successfully changed."}, status=201)
         except:
             return JsonResponse({"error": "Something Wrong trying to save changes." }, status=400)
-
-
 
     return HttpResponse(status=204)
 
