@@ -24,19 +24,19 @@ def index(request):
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
-        #print(result_list)
-
-        context={
-            "AllPosts": result_list,
-            "NewPostForm":NewPostForm(),
-
-        }
-        return render(request, "network/index.html", context)
     else:
         context={
             "Message": "Please Login or join our Network",
         }
         return render(request, "network/login.html", context)
+
+    context={
+        "AllPosts": result_list,
+        "NewPostForm":NewPostForm(),
+    }
+    return render(request, "network/index.html", context)
+
+
 
 
 def login_view(request):
@@ -188,10 +188,42 @@ def post_view(request,username):
             return render(request, "network/index.html", context)
 
 
+@login_required
+def following_view(request):
+    FPL = []  #Following Post List
+    if request.user.is_authenticated:
+        post_list = []
+        post_list = allposts()
+    else:
+        message = "Please Login or join our Network"
+
+    profile = Profile.objects.filter(User=request.user)
+    for FG in profile:
+        TFollowing = FG.Following.all().count() #total following
+        UFollowing = FG.Following.all() #following names
+
+    for post in post_list:
+        for u in UFollowing:
+            if u in post:
+                FPL.append(post)
+
+
+
+    context = {
+         "Message": message,
+         "FollowingPosts" : FPL,
+         "NewPostForm":NewPostForm(),
+    }
+
+    return render(request, "network/following.html", context)
+
+
+
+
 def allposts():
     with connection.cursor() as cursor:
         cursor.execute(f"""
-            SELECT u.username, po.Post, po.Date, po.Likes, po.Unlikes
+            SELECT u.username, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
             FROM network_user u, network_profile pr, network_posts po
             WHERE pr.User_id = po.User_id AND po.User_id = u.id
             ORDER BY po.Date DESC""")
@@ -209,16 +241,6 @@ def dictfetchall(cursor):
     ]
 
 
-
-def following_view(request):
-
-    message = "Hello all"
-
-    context = {
-         "Message": message,
-    }
-
-    return render(request, "network/following.html", context)
 
 
 #testing
