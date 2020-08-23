@@ -210,7 +210,7 @@ def dictfetchall(cursor):
 
 
 
-def following_view():
+def following_view(request):
 
     message = "Hello all"
 
