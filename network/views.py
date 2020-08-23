@@ -225,9 +225,14 @@ def followme(request):
                 ProfToChange1.Follower.remove(data['id'])
             ProfToChange1.save()
 
+            print(Profile.TotalFollowers(),Profile.TotalFollowing() )
 
 
-            return JsonResponse({'status': 201},  status=201)
+            return JsonResponse({'status': 201,
+                                 'TotalFollowers':Profile.TotalFollowers(),
+                                 'TotalFollowing':Profile.TotalFollowing(),
+
+                                 },  status=201)
         except:
             return JsonResponse({"error": "GET or PUT request required." }, status=400)
 
