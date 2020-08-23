@@ -5,23 +5,26 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Follow / UnFollow clicked!');
         //profile id in view
         profile_id = document.getElementById('profile_id').value;
+        profile_username = document.getElementById('profile_username').value;
         //profile name in view
-        profile_Searcher = document.getElementById('profile_Searcher').value;
+        search_id = document.getElementById('Search_id').value;
+        search_name = document.getElementById('Search_username').value;
         //action
         profile_ForN = document.getElementById('follow_me').value;
-        followme(`${profile_id}`, `${profile_Searcher}`,`${profile_ForN}`);
+        followme(`${profile_id}`, `${profile_username}`,`${search_id}`, `${search_name}`,`${profile_ForN}`);
 
         });
 });
 
-function followme(profid, profSearcher, profForN) {
-  console.log("Values are:",`${profid}`, `${profSearcher}`,`${profForN}`);
+function followme(profid, profusername, searchid, searchname, profForN) {
 
   fetch("/followme", {
           method: "PUT",
           body: JSON.stringify({
                 id: `${profid}`,
-                follower: `${profSearcher}`,
+                username:`${profusername}`,
+                follower: `${searcherid}`,
+                followername:  `${searchname}`,
                 fornot: `${profForN}`,
           })
   })
@@ -30,8 +33,8 @@ function followme(profid, profSearcher, profForN) {
       console.log(response.status);
       console.log(response.text());
       if (response.status == 201) {
-        console.log("Total followers changed");
-        location.reload();
+        console.log("Get Profile New Data");
+
       }
       else{
          throw 'Error';
