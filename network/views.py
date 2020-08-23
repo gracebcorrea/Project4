@@ -191,26 +191,32 @@ def post_view(request,username):
 @login_required
 def following_view(request):
     FPL = []  #Following Post List
+    Post_list = []
     if request.user.is_authenticated:
-        post_list = []
-        post_list = allposts()
+        Post_list = Posts.objects.all()
+        print("LISTA DE TODOS OS POSTS",Post_list)
     else:
-        message = "Please Login or join our Network"
+        context={
+            "Message": "Please Login or join our Network",
+        }
+        return render(request, "network/login.html", context)
+
 
     profile = Profile.objects.filter(User=request.user)
-    for FG in profile:
-        TFollowing = FG.Following.all().count() #total following
-        UFollowing = FG.Following.all() #following names
+    for U in profile:
+        UFollowing = U.Following.all() #following names
 
-    for post in post_list:
-        for u in UFollowing:
-            if u in post:
-                FPL.append(post)
+    print("SEGUINDO : ",UFollowing )
 
+    for Post in Post_list:
+        for U in UFollowing:
+            if U in Post:
+                FPL.append(Post)
 
+    print(FPL)
 
     context = {
-         "Message": message,
+
          "FollowingPosts" : FPL,
          "NewPostForm":NewPostForm(),
     }
