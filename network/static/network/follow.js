@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log('Follow / UnFollow clicked!');
         //profile id in view
-        profile_id = document.getElementById('profile_id').value;
-        profile_username = document.getElementById('profile_username').value;
+        profid = document.getElementById('profile_id').value;
+        profusername= document.getElementById('profile_username').value;
         //profile name in view
-        search_id = document.getElementById('search_id').value;
-        search_name = document.getElementById('search_username').value;
+        searchid = document.getElementById('search_id').value;
+        searchname = document.getElementById('search_username').value;
         //action
         profile_ForN = document.getElementById('follow_me').value;
-        followme(`${profile_id}`, `${profile_username}`,`${search_id}`, `${search_name}`,`${profile_ForN}`);
+        followme(`${profid}`, `${profusername}`,`${searchid}`, `${searchname}`,`${profile_ForN}`);
 
         });
 });
