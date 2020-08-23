@@ -210,12 +210,12 @@ def followme(request):
         data = json.loads(request.body)
         print("JSON DATA")
 
-        ProfToChange = Profile.objects.get(User=data['id'])
+        ProfToChange = Profile.objects.get(User=data['id']) #profile id
         print("Profile to change:", ProfToChange )
 
         try:
-            if data['fornot'] == "Follow":
-               ProfToChange.Follower.add(data['follower'])
+            if data['fornot'] == "Follow": #Follow our unfollow
+               ProfToChange.Follower.add(data['follower'])  #Follower id
             if data['fornot'] == "Unfollow":
                 ProfToChange.Follower.remove(data['follower'])
             ProfToChange.save()
