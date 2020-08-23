@@ -212,13 +212,13 @@ def dictfetchall(cursor):
 
 def following_view():
 
-
+    message = "Hello all"
 
     context = {
-         "Message":"Hello all",
+         "Message": message,
     }
 
-    return render(request, "network/following.html", context )
+    return render(request, "network/following.html", context)
 
 
 #testing
