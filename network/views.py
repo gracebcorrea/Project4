@@ -231,13 +231,15 @@ def followme(request):
             if data['fornot'] == "Unfollow":
                 ProfToChange1.Follower.remove(data['follower'])
                 ProfToChange1.Follower.remove(data['id'])
+
             ProfToChange1.save()
+            ProfToChange2.save()
 
 
 
-            return JsonResponse({"message": "Followers successfully."}, status=201)
+            return JsonResponse({"message": "Followers successfully changed."}, status=201)
         except:
-            return JsonResponse({"error": "GET or PUT request required." }, status=400)
+            return JsonResponse({"error": "Something Wrong trying to save changes." }, status=400)
 
 
 
