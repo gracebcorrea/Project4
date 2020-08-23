@@ -43,9 +43,6 @@ function followme(profid, profusername, searchid, searchname, profForN) {
 
 
 
-function following(){
-}
-
 
 
 
