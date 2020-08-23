@@ -215,7 +215,7 @@ def following_view():
 
 
     context = {
-         "Following": result_list,
+         "Message":"Hello all",
     }
 
     return render(request, "network/following.html", context )
