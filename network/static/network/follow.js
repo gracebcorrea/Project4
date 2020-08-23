@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
         profile_id = document.getElementById('profile_id').value;
         profile_username = document.getElementById('profile_username').value;
         //profile name in view
-        search_id = document.getElementById('Search_id').value;
-        search_name = document.getElementById('Search_username').value;
+        search_id = document.getElementById('search_id').value;
+        search_name = document.getElementById('search_username').value;
         //action
         profile_ForN = document.getElementById('follow_me').value;
         followme(`${profile_id}`, `${profile_username}`,`${search_id}`, `${search_name}`,`${profile_ForN}`);
@@ -23,8 +23,8 @@ function followme(profid, profusername, searchid, searchname, profForN) {
           body: JSON.stringify({
                 id: `${profid}`,
                 username:`${profusername}`,
-                follower: `${searcherid}`,
-                followername:  `${searchname}`,
+                follower: `${searchid}`,
+                followername: `${searchname}`,
                 fornot: `${profForN}`,
           })
   })
