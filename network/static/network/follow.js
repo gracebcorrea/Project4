@@ -37,7 +37,7 @@ function followme(profid, profusername, searchid, searchname, profForN) {
 
       }
       else{
-         throw 'Error';
+         throw 'error';
       }
       return response.json()}
   )
