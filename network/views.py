@@ -212,7 +212,8 @@ def followme(request):
 
         ProfToChange1 = Profile.objects.get(User=data['id']) #profile id
         ProfToChange2 = Profile.objects.get(User=data['follower'])
-        print("Profile to change:", ProfToChange1 )
+        print("Profile to change 1:", ProfToChange1)
+        print("Profile to change 2:", ProfToChange2)
 
         try:
             if data['fornot'] == "Follow": #Follow our unfollow
