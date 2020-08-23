@@ -30,17 +30,15 @@ function followme(profid, profusername, searchid, searchname, profForN) {
   })
   .then((response) => response.json())
   .then((response) => {
-      console.log(response.status);
-      if (response.status == 201) {
-        console.log("Get Profile New Data");
+        console.log(response.status);
         window.location.reload(true);
 
-      }
-      else{
-         throw 'error';
-      }
-      return response.json()}
-  )
+
+  })
+  .catch(error => {
+        console.log(error);
+    });
+
 }
 
 
