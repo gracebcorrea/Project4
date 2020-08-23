@@ -18,9 +18,6 @@ from .models import User, Profile, Posts
 
 class NewPostForm(forms.Form):
     NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'140','text-align': 'center' }))
-class CreateProfileForm(forms.Form):
-    ProfPicture = forms.FileField(label="Upload your profile picture  ")
-
 
 def index(request):
 
@@ -88,27 +85,12 @@ def register(request):
                 "message": "Username already taken."
             })
 
-        print("New User:", user)
-
-        NP = CreateProfileForm(request.POST)
-        if NP.is_valid():
-            NP_picture = NP.cleaned_data["ProfPicture"]
-            NP_user = user
-            try:
-               newprofile = Profile.objects.create_user(User=NP_user, Avatar=NP_picture)
-               newprofile.save()
-               print("New Profile: ",newprofile)
-            except:
-                return render(request, "network/register.html", {
-                        "message": "We couldn´t create your profile , sorry." })
 
         login(request, user)
         return HttpResponseRedirect(reverse("network:index"))
     else:
-        context = {
-           "CreateProfileForm": CreateProfileForm(),
-        }
-        return render(request, "network/register.html" , context)
+
+        return render(request, "network/register.html" )
 
 """__________________________________________________________________________________________________"""
 
