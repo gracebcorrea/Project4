@@ -18,6 +18,8 @@ from .models import User, Profile, Posts
 
 class NewPostForm(forms.Form):
     NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'140','text-align': 'center' }))
+class CreateProfileForm(forms.Form):
+    ProfPicture = forms.FileField(label="Upload your profile picture  ")
 
 
 def index(request):
@@ -69,7 +71,6 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
-
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -78,10 +79,25 @@ def register(request):
                 "message": "Passwords must match."
             })
 
+
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
+
+
+            NP = CreateProfileForm(request.POST)
+            if NP.is_valid():
+
+                NP_picture = NP.cleaned_data["ProfPicture"]
+                NP_id = User.objects.filter(username=username).values('id')
+                for u in Userid:
+                    NP_id = int(u['id'])
+
+                newprofile=Profile.objects.create_user(User=NP_id, Avatar=NP_picture)
+                newprofile.save()
+
+
         except IntegrityError:
             return render(request, "network/register.html", {
                 "message": "Username already taken."
@@ -89,7 +105,12 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("network:index"))
     else:
-        return render(request, "network/register.html")
+        context = {
+           "CreateProfileForm": CreateProfileForm(),
+
+
+        }
+        return render(request, "network/register.html" , context)
 
 """__________________________________________________________________________________________________"""
 
@@ -105,6 +126,7 @@ def profile(request,username):
     userid = User.objects.filter(username=searchuser).values('id')
     for u in userid:
         User_id = int(u['id'])
+
     profile = Profile.objects.filter(User=User_id )
     UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
 
@@ -149,6 +171,13 @@ def profile(request,username):
     }
     return render(request, "network/profile.html", context)
 
+def createprofile(username,userid):
+
+
+
+
+    return render(request, "network/profile.html", context)
+
 
 @login_required
 def post_view(request,username):
@@ -158,14 +187,13 @@ def post_view(request,username):
         if PV.is_valid():
             PV_user=request.user
             PV_post=PV.cleaned_data["NewPost"]
-            PV_date=datetime.now()
             try:
-                NewPost = Posts(User=PV_user  , Post=PV_post  , Date=PV_date)
+                NewPost = Posts(User=PV_user  , Post=PV_post)
                 NewPost.save()
                 ReloadPosts = allposts()
                 context={
-                   "AllPosts": ReloadPosts,
                    "NewPostForm":NewPostForm(),
+                    "AllPosts": ReloadPosts,
                 }
                 return render(request, "network/index.html", context)
             except IntegrityError as e:
@@ -179,21 +207,11 @@ def post_view(request,username):
 
             return render(request, "network/index.html", context)
 
-def following_view():
-
-
-
-    context = {
-         "Following": result_list,
-    }
-
-    return render(request, "network/following.html", context )
-
 
 def allposts():
     with connection.cursor() as cursor:
         cursor.execute(f"""
-            SELECT u.username, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
+            SELECT u.username, po.Post, po.Date, po.Likes, po.Unlikes
             FROM network_user u, network_profile pr, network_posts po
             WHERE pr.User_id = po.User_id AND po.User_id = u.id
             ORDER BY po.Date DESC""")
@@ -209,6 +227,19 @@ def dictfetchall(cursor):
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
+
+
+
+def following_view():
+
+
+
+    context = {
+         "Following": result_list,
+    }
+
+    return render(request, "network/following.html", context )
+
 
 #testing
 @login_required
