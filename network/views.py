@@ -208,6 +208,7 @@ def following_view(request):
     profile= []
     following = []
     posts = []
+    postchoose = []
 
     if request.user.is_authenticated:
           posts = Posts.objects.all().order_by('-Date')
@@ -216,18 +217,14 @@ def following_view(request):
           seguindo = Profile.objects.filter(Follower=user)
           print(user, username )
 
-          for p in posts:
+          for row in posts:
               for s in seguindo:
-                  if  p.User == s.User:
-                      print("POST:", p)
-                      print("FOLLOWING", s)
-
-                      spic= s.Avatar
-                      print("ADD AVATAR:", spic)
-                      FPL.append(p)
+                  if row.User == s.User:
+                      FPL.append(row)
 
 
-                      print("FPL", FPL )
+          print("FPL:", FPL )
+
 
 
 
@@ -269,7 +266,7 @@ def allposts():
             WHERE pr.User_id = po.User_id AND po.User_id = u.id
             ORDER BY po.Date DESC""")
         results = dictfetchall(cursor)
-
+    print("ALLPOSTS:", results)
     return results
 
 
