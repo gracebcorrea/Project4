@@ -221,7 +221,7 @@ def following_view(request):
               for s in seguindo:
                   if row.User == s.User:
                       FPL.append(row)
-
+                      
 
           print("FPL:", FPL )
 
@@ -266,7 +266,6 @@ def allposts():
             WHERE pr.User_id = po.User_id AND po.User_id = u.id
             ORDER BY po.Date DESC""")
         results = dictfetchall(cursor)
-    print("ALLPOSTS:", results)
     return results
 
 
