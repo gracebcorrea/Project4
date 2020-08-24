@@ -5,26 +5,14 @@
   <hr>
   <h1>{{Message}}</h1>
 
-
-    <div class="container" >
-
-        <form action="{% url 'network:post' request.user %}" method="post" style="border: 1px solid #e6ffff ;">
-            {% csrf_token %}
-            <p style="text-align:center;">
-              {{request.user |title}}
-              {{ NewPostForm }}
-              <br>
-              <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button></p>
-        </form>
-    </div>
-    <form>
-
-    {% if FollowingPosts|length > 0 %}
+   {% if FollowingPosts|length > 0 %}
         {% for F in FollowingPosts %}
             <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
                 <div class="row"  width="1700px">
                     <div class="col-lg-3">
-                        <p><a href="{% url 'network:profile' F.username %}" >  {{F.username |title}} </a> </p>
+
+                        <p><a href="{% url 'network:following' %}" >  {{F.User |title}} </a> </p>
+
                     </div>
                     <div class="col-lg-4">
                              <p> {{F.Post}} </p>
