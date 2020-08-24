@@ -19,31 +19,33 @@ from .models import User, Profile, Posts
 class NewPostForm(forms.Form):
     NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'140','text-align': 'center' }))
 
+@login_required
 def index(request):
-
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
         paginator = Paginator(result_list, 10)
+        print(paginator.count , paginator.num_pages )
 
-        if request.GET.get("page") != None:
-            try:
-                result_list = paginator.page(request.GET.get("page"))
-            except:
-                result_list = paginator.page(1)
-        else:
-            result_list = paginator.page(1)
+        page_number = request.GET.get('page')
+        page_itens = paginator.get_page(page_number)
+        print(page_itens)
+
+        context={
+            "NewPostForm":NewPostForm(),
+            "page_obj": page_itens,
+        }
+        return render(request, "network/index.html", context)
+
+
+
     else:
         context={
             "Message": "Please Login or join our Network",
         }
         return render(request, "network/login.html", context)
 
-    context={
-        "AllPosts": result_list,
-        "NewPostForm":NewPostForm(),
-    }
-    return render(request, "network/index.html", context)
+
 
 
 
@@ -220,16 +222,10 @@ def following_view(request):
           for row in posts:
               for s in seguindo:
                   if row.User == s.User:
+                      #r.append(s.Avatar) como juntar a foto na query?
                       FPL.append(row)
-                      
 
           print("FPL:", FPL )
-
-
-
-
-
-
 
 
     else:
