@@ -62,31 +62,32 @@
 
       {% endfor %}
       <br>
-       <hr>
-      <div class="container">
-          <ul class="pagination justify-content-center">
-              {% if page_obj.has_previous %}
-                          <li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
-                          <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a></li>
-              {% else %}
-                      <li class="page-item disabled"><a class="page-link">&laquo; First</a></li>
-                      <li class="page-item disabled"><a class="page-link">Previous</a></li>
-              {% endif %}
-              {% if page_obj.number %}
-                      <li class="page-item"><a class="page-link">{{ page_obj.number }}</a></li>
-              {% else %}
-                      <li class="page-item"><a class="page-link">0</a></li>
-              {% endif %}
-              {% if page_obj.has_next %}
-                      <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a></li>
-                      <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Last &raquo;</a></li>
-              {% else %}
-                      <li class="page-item disabled"><a class="page-link">Next</a></li>
-                      <li class="page-item disabled"><a class="page-link">Last &raquo;</a></li>
-              {% endif %}
+      <hr>
+      <form>
+         <div class="container" >
+            <ul class="pagination justify-content-center"  >
+                {% if page_obj.has_previous %}
+                          <li class="page-item"><a href="?page=1" class="page-link" style="background-color:#e6ffff;">&laquo; First</a></li>
+                          <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link" style="background-color:#e6ffff;">Previous</a></li>
+                {% else %}
+                      <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">&laquo; First</a></li>
+                      <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Previous</a></li>
+                {% endif %}
+                {% if page_obj.number %}
+                      <li class="page-item"><a class="page-link" style="background-color:#e6ffff;">{{ page_obj.number }}</a></li>
+                {% else %}
+                      <li class="page-item"><a class="page-link" style="background-color:#e6ffff;">0</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                      <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link" style="background-color:#e6ffff;">Next</a></li>
+                      <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" style="background-color:#e6ffff;">Last &raquo;</a></li>
+                {% else %}
+                      <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Next</a></li>
+                      <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Last &raquo;</a></li>
+                {% endif %}
           </ul>
-      </div>
-
+        </div>
+      </form>
   {% endif %}
   </form>
   {% endblock %}
