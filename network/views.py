@@ -178,10 +178,16 @@ def post_view(request,username):
             try:
                 NewPost = Posts(User=PV_user  , Post=PV_post)
                 NewPost.save()
-                ReloadPosts = allposts()
+
+                paginator = Paginator(allposts(), 10)
+                page_number = request.GET.get('page')
+                page_itens = paginator.get_page(page_number)
+                print("ALL POSTS PAGE")
+                print(paginator.count , paginator.num_pages )
+
                 context={
-                   "NewPostForm":NewPostForm(),
-                    "AllPosts": ReloadPosts,
+                    "NewPostForm":NewPostForm(),
+                    "page_obj": page_itens,
                 }
                 return render(request, "network/index.html", context)
             except IntegrityError as e:
@@ -189,10 +195,9 @@ def post_view(request,username):
                 return HttpResponse( "ERROR trying to save New Post."  )
     else:
             context={
-               "AllPosts": ReloadPosts,
                "NewPostForm":NewPostForm(),
+               "page_obj": allposts(),
             }
-
             return render(request, "network/index.html", context)
 
 
