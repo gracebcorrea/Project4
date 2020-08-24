@@ -21,16 +21,17 @@
   </div>
   <form>
 
-  {% if AllPosts|length > 0 %}
-      {% for A in AllPosts %}
+  {% if page_obj|length > 0 %}
+      {% for A in page_obj %}
           <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
               <div class="row"  width="1700px">
-                  <div class="col-lg-2">
+                  <div class="col-lg-1">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
-                      <img src="/media/{{A.Avatar}} "  class="img-responsive" style="width: 80px;"   />
-
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-2">
+                          <img src="/media/{{A.Avatar}} "  class="img-responsive" style="width: 80px;"   />
+                  </div>
+                  <div class="col-lg-3">
                            <p> {{A.Post}} </p>
                   </div>
                   <div class="col-lg-1" style="text-align: center;">
@@ -55,9 +56,37 @@
                          <p> like </p>
                       </div>
                   </div>
-              </div>
-              <hr>
+          </div>
+          <hr>
+
+
       {% endfor %}
+      <br>
+       <hr>
+      <div class="container">
+          <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                          <li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
+                          <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a></li>
+              {% else %}
+                      <li class="page-item disabled"><a class="page-link">&laquo; First</a></li>
+                      <li class="page-item disabled"><a class="page-link">Previous</a></li>
+              {% endif %}
+              {% if page_obj.number %}
+                      <li class="page-item"><a class="page-link">{{ page_obj.number }}</a></li>
+              {% else %}
+                      <li class="page-item"><a class="page-link">0</a></li>
+              {% endif %}
+              {% if page_obj.has_next %}
+                      <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a></li>
+                      <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Last &raquo;</a></li>
+              {% else %}
+                      <li class="page-item disabled"><a class="page-link">Next</a></li>
+                      <li class="page-item disabled"><a class="page-link">Last &raquo;</a></li>
+              {% endif %}
+          </ul>
+      </div>
+
   {% endif %}
   </form>
   {% endblock %}
