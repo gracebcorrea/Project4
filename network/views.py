@@ -19,7 +19,7 @@ from .models import User, Profile, Posts
 class NewPostForm(forms.Form):
     NewPost = forms.CharField(label= "What are you thinking?",widget=forms.Textarea( attrs={'rows':'3' , 'cols':'140','text-align': 'center' }))
 
-@login_required
+
 def index(request):
     if request.user.is_authenticated:
         result_list = []
@@ -29,6 +29,7 @@ def index(request):
 
         page_number = request.GET.get('page')
         page_itens = paginator.get_page(page_number)
+        print("ALL POSTS PAGE")
         print(page_itens)
 
         context={
@@ -141,23 +142,14 @@ def profile(request,username):
         btnfollow = "Follow"
 
     paginator = Paginator(UserPosts, 10)
-    if request.GET.get("page") != None:
-        try:
-            UserPosts = paginator.page(request.GET.get("page"))
-        except:
-            UserPosts = paginator.page(1)
-    else:
-        UserPosts = paginator.page(1)
+    page_number = request.GET.get('page')
+    page_itens = paginator.get_page(page_number)
+
+    print("PROFILE PAGE")
+    print(paginator.count , paginator.num_pages )
+    print(page_itens)
 
 
-
-    """
-    print("Logged User :", request.user.id ,request.user)
-    print("Profile Shown :", User_id)
-    print("Show follow button ? ", ShowFollowornot)
-    print("Followers :", UFollowers)
-    print("Follow or Unfollow ? :" ,btnfollow )
-    """
 
     context={
         "User":searchuser,
@@ -168,7 +160,7 @@ def profile(request,username):
         "btnfollow" : btnfollow,
         "UserFollowers":UFollowers,
         "Userfollowing":UFollowing ,
-        "UserPosts": UserPosts,
+        "page_obj": page_itens,
 
     }
     return render(request, "network/profile.html", context)
@@ -225,8 +217,13 @@ def following_view(request):
                       #r.append(s.Avatar) como juntar a foto na query?
                       FPL.append(row)
 
-          print("FPL:", FPL )
+          paginator = Paginator(FPL, 10)
+          page_number = request.GET.get('page')
+          page_itens = paginator.get_page(page_number)
 
+          print("FOLLOWING PAGE")
+          print(paginator.count , paginator.num_pages )
+          print(page_itens)
 
     else:
         context={
@@ -234,18 +231,9 @@ def following_view(request):
         }
         return render(request, "network/login.html", context)
 
-    paginator = Paginator(FPL, 10)
-    """
-    if request.GET.get("page") != None:
-        try:
-            FPL = paginator.page(request.GET.get("page"))
-        except:
-            FPL = paginator.page(1)
-    else:
-        FPL = paginator.page(1)
-    """
+
     context = {
-         "FollowingPosts" : FPL,
+         "page_obj" : page_itens,
          "NewPostForm":NewPostForm(),
     }
 
