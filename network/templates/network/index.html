@@ -9,7 +9,6 @@
 
 
   <div class="container" >
-
       <form action="{% url 'network:post' request.user %}" method="post" style="border: 1px solid #e6ffff ;">
           {% csrf_token %}
           <p style="text-align:center;">
@@ -19,7 +18,8 @@
             <button class="btn btn-primary" type="Submit" id="newpost" name="newpost">Post</button></p>
       </form>
   </div>
-  <form>
+
+
 
   {% if page_obj|length > 0 %}
       {% for A in page_obj %}
@@ -53,7 +53,7 @@
                          <p> {{A.Date}} </p>
                       </div>
                       <div class="col-lg-1">
-                         <p> like </p>
+                         <p> FALTA O like DESLIKE </p>
                       </div>
                   </div>
           </div>
@@ -89,5 +89,5 @@
         </div>
       </form>
   {% endif %}
-  </form>
+
   {% endblock %}
