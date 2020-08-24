@@ -1,4 +1,6 @@
 {% extends "network/layout.html" %}
+{% load static %}
+
 
 {% block body %}
   <h1>All Posts</h1>
@@ -25,7 +27,8 @@
               <div class="row"  width="1700px">
                   <div class="col-lg-3">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
-                      <p>{{A.Avatar.url}}</p>
+                      <img src="http://127.0.0.1:8000/media/{{A.Avatar.url}} "  class="img-responsive" style="width: 150"  alt="{{A.Avatar}} "/>
+
                   </div>
                   <div class="col-lg-4">
                            <p> {{A.Post}} </p>
