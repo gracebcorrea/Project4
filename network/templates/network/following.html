@@ -1,44 +1,69 @@
 {% extends "network/layout.html" %}
-
+{% load static %}
 {% block body %}
   <h1>Following </h1>
   <hr>
   <h1>{{Message}}</h1>
 
- {% if FollowingPosts|length > 0 %}
-        {% for F in FollowingPosts %}
-
+{% if page_obj|length > 0 %}
+        {% for F in page_obj %}
             <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
                 <div class="row"  width="1700px">
                     <div class="col-lg-3">
                         <p><a href= "{% url 'network:profile' F.User %}"  >  {{F.User |title}} </a>
-
                     </div>
                     <div class="col-lg-4">
-                             <p> {{F.Post}} </p>
+                         <p> {{F.Post}} </p>
                     </div>
                     <div class="col-lg-1" style="text-align: center;">
-                             {%if F.Likes == None%}
-                               <p> 0 <i class="fas fa-thumbs-up"></i></p>
-                             {% else %}
-                                <p> {{ F.Likes }}  <i class="fas fa-thumbs-up"></i></p>
-                             {% endif %}
+                         {%if F.Likes == None%}
+                             <p> 0 <i class="fas fa-thumbs-up"></i></p>
+                         {% else %}
+                              <p> {{ F.Likes }}  <i class="fas fa-thumbs-up"></i></p>
+                         {% endif %}
                     </div>
                     <div class="col-lg-1" style="text-align: center;">
-                             {%if F.Unlikes  == None%}
-                                  <p> 0  <i class="fas fa-thumbs-down"></i></p>
-                              {% else %}
-                                  <p> {{ F.Unlikes }}  <i class="fas fa-thumbs-down"></i></p>
-                              {% endif %}
+                         {%if F.Unlikes  == None%}
+                              <p> 0  <i class="fas fa-thumbs-down"></i></p>
+                         {% else %}
+                              <p> {{ F.Unlikes }}  <i class="fas fa-thumbs-down"></i></p>
+                          {% endif %}
 
-                        </div>
-                        <div class="col-lg-3">
-                           <p> {{F.Date}} </p>
-                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                       <p> {{F.Date}} </p>
                     </div>
                 </div>
-                <hr>
+            </div>
+            <br>
         {% endfor %}
+        <br>
+        <hr>
+        <form>
+           <div class="container" >
+              <ul class="pagination justify-content-center"  >
+                  {% if page_obj.has_previous %}
+                            <li class="page-item"><a href="?page=1" class="page-link" style="background-color:#e6ffff;">&laquo; First</a></li>
+                            <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link" style="background-color:#e6ffff;">Previous</a></li>
+                  {% else %}
+                        <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">&laquo; First</a></li>
+                        <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Previous</a></li>
+                  {% endif %}
+                  {% if page_obj.number %}
+                        <li class="page-item"><a class="page-link" style="background-color:#e6ffff;">{{ page_obj.number }}</a></li>
+                  {% else %}
+                        <li class="page-item"><a class="page-link" style="background-color:#e6ffff;">0</a></li>
+                  {% endif %}
+                  {% if page_obj.has_next %}
+                        <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link" style="background-color:#e6ffff;">Next</a></li>
+                        <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" style="background-color:#e6ffff;">Last &raquo;</a></li>
+                  {% else %}
+                        <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Next</a></li>
+                        <li class="page-item disabled"><a class="page-link" style="background-color:#e6ffff;">Last &raquo;</a></li>
+                  {% endif %}
+            </ul>
+          </div>
+        </form>
     {% endif %}
-    </form>
+
     {% endblock %}
