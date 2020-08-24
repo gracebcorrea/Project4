@@ -24,6 +24,15 @@ def index(request):
     if request.user.is_authenticated:
         result_list = []
         result_list = allposts()
+        paginator = Paginator(result_list, 10)
+
+        if request.GET.get("page") != None:
+            try:
+                result_list = paginator.page(request.GET.get("page"))
+            except:
+                result_list = paginator.page(1)
+        else:
+            result_list = paginator.page(1)
     else:
         context={
             "Message": "Please Login or join our Network",
@@ -129,6 +138,17 @@ def profile(request,username):
     else:
         btnfollow = "Follow"
 
+    paginator = Paginator(UserPosts, 10)
+    if request.GET.get("page") != None:
+        try:
+            UserPosts = paginator.page(request.GET.get("page"))
+        except:
+            UserPosts = paginator.page(1)
+    else:
+        UserPosts = paginator.page(1)
+
+
+
     """
     print("Logged User :", request.user.id ,request.user)
     print("Profile Shown :", User_id)
@@ -151,12 +171,6 @@ def profile(request,username):
     }
     return render(request, "network/profile.html", context)
 
-def createprofile(username,userid):
-
-
-
-
-    return render(request, "network/profile.html", context)
 
 
 @login_required
@@ -190,36 +204,54 @@ def post_view(request,username):
 
 @login_required
 def following_view(request):
-    FPL = []  #Following Post List
-    Post_list = []
+    FPL = []
+    profile= []
+    following = []
+    posts = []
+
     if request.user.is_authenticated:
-        Post_list = Posts.objects.all()
+          posts = Posts.objects.all().order_by('-Date')
+          user = request.user.id
+          username = request.user.username
+          seguindo = Profile.objects.filter(Follower=user)
+          print(user, username )
+
+          for p in posts:
+              for s in seguindo:
+                  if  p.User == s.User:
+                      print("POST:", p)
+                      print("FOLLOWING", s)
+
+                      spic= s.Avatar
+                      print("ADD AVATAR:", spic)
+                      FPL.append(p)
+
+
+                      print("FPL", FPL )
+
+
+
+
+
+
+
     else:
         context={
             "Message": "Please Login or join our Network",
         }
         return render(request, "network/login.html", context)
 
-
-    profile = Profile.objects.filter(User=request.user)
-    for U in profile:
-        UFollowing = U.Following.all() #following names
-
-    print("SEGUINDO : ",UFollowing )
-
-    for Post in Post_list:
-        P=Post
-        print(P)
-        for User in UFollowing:
-            U=User
-            print(U)
-            if U in P:
-                FPL.append(P)
-
-    print(FPL)
-
+    paginator = Paginator(FPL, 10)
+    """
+    if request.GET.get("page") != None:
+        try:
+            FPL = paginator.page(request.GET.get("page"))
+        except:
+            FPL = paginator.page(1)
+    else:
+        FPL = paginator.page(1)
+    """
     context = {
-
          "FollowingPosts" : FPL,
          "NewPostForm":NewPostForm(),
     }
