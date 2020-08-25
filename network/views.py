@@ -149,7 +149,7 @@ def profile(request,username):
 
         #print("PROFILE PAGE")
         #print(paginator.count , paginator.num_pages )
-        print(UserPosts)
+
         context={
             "User":searchuser,
             "Profiles":profile,
@@ -195,8 +195,7 @@ def post_view(request,username):
                 }
                 return render(request, "network/index.html", context)
             except IntegrityError as e:
-                print(e)
-                return HttpResponse( "ERROR trying to save New Post."  )
+                return HttpResponse( "ERROR trying to save New Post." + e )
     else:
             context={
                "NewPostForm":NewPostForm(),
@@ -332,18 +331,18 @@ def editpost_view(request):
 
 @login_required
 @csrf_exempt
-def likes_view(page, postid, flag):
-    if request.method == "PUT":
-        data = json.loads(request.body)
+def likes_view(request):
+    #if request.method == "PUT":
+    #    data = json.loads(request.body)
 
 
 
 
 
 
-        return JsonResponse({"message": "Like Status changed."}, status=201)
-    else:
-        return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
+    return JsonResponse({"message": "Like Status changed."}, status=201)
+    #else:
+    #    return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
 
 
 
