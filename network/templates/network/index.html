@@ -27,12 +27,19 @@
               <div class="row"  width="1700px">
                   <div class="col-lg-1">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
+
+                      {% if UserEdit == A.username %}
+                           <p><a href="" >Edit Post  </a> </p>
+                      {%endif%}
+
                   </div>
                   <div class="col-lg-2">
                           <img src="/media/{{A.Avatar}} "  class="img-responsive" style="width: 80px;"   />
                   </div>
                   <div class="col-lg-3">
                            <p> {{A.Post}} </p>
+                           <div id="EditPost">
+                           </div>
                   </div>
                   <div class="col-lg-1" style="text-align: center;">
                            {%if A.Likes == None%}
