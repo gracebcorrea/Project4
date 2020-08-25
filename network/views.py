@@ -206,6 +206,9 @@ def post_view(request,username):
             return render(request, "network/index.html", context)
 
 
+
+
+
 @login_required
 def following_view(request):
     FPL = []
@@ -255,7 +258,7 @@ def following_view(request):
 def allposts():
     with connection.cursor() as cursor:
         cursor.execute(f"""
-            SELECT u.username, pr.Avatar, po.Post, po.Date, po.Likes, po.Unlikes
+            SELECT u.username, pr.Avatar,po.id, po.Post, po.Date, po.Likes, po.Unlikes
             FROM network_user u, network_profile pr, network_posts po
             WHERE pr.User_id = po.User_id AND po.User_id = u.id
             ORDER BY po.Date DESC""")
@@ -271,7 +274,9 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()
     ]
 
-
+"""
+___________________________________________________  APIs_______________________________________________________
+"""
 
 
 #testing
@@ -304,6 +309,16 @@ def followme(request):
             return JsonResponse({"error": "Something Wrong trying to save changes." }, status=400)
 
     return HttpResponse(status=204)
+
+
+def editpost_view(postid):
+    return JsonResponse({"message": "Post successfully changed."}, status=201)
+
+def likes_view(postid, flag):
+    return JsonResponse({"message": "Like Status changed."}, status=201)
+
+
+
 
 
 
