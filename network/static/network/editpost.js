@@ -5,19 +5,21 @@ document.addEventListener('DOMContentLoaded', function () {
         postid = document.querySelector('#post_id').value;
         page = document.querySelector('#pagename').value;
         oldpost = document.querySelector('#oldpost').value;
-        alert('EditPost clicked!',postid,page ,oldpost );
+        console.log('EditPost clicked!' );
+        console.log(`${page}`, `${postid}`);
 
         document.querySelector('#newtext').innerHTML = `
             <form>
-                <textarea class="form-control" id="newpost" ></textarea>
-                <input id="submit" type="submit" class="btn btn-primary" name="Edit" onclick="changepost( ${page}, ${postid}, ${text})">
+                <textarea class="form-control" id="newpost" value=${oldpost}></textarea>
+                <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${page}, ${postid})">
+                <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
             </form>
 
 
         `
         newtext = document.querySelector('#newpost').value;
 
-
+        console.log(`${newtext}`);
 
 
 
@@ -25,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function changepost( page, postid, newtext){
+function changepost( page, postid){
   const url = `/${page}/${postid}`;
+  newtext=document.querySelector('#newpost').value;
   fetch(url, {
     method: "PUT",
     body: JSON.stringify({
