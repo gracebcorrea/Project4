@@ -42,8 +42,6 @@
               </div>
             </div>
       {% endfor %}
-
-      <hr style="color : white;">
     </form>
 </div>
 
@@ -53,9 +51,14 @@
               <div class="row"  width="1700px">
                    <div class="col-lg-1">
                         <p> {{ U.User |title }} </p>
+                        {% if UserEdit == U.User %}
+                             <p><a href="" >Edit Post  </a> </p>
+                        {%endif%}
                    </div>
                    <div class="col-lg-4">
                         <p> {{U.Post }} </p>
+                        <div id="EditPost">
+                        </div>
                    </div>
                    <div class="col-lg-1" style="text-align: center;">
                         {% if U.Likes == None%}
