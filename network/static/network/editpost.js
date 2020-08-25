@@ -2,15 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#EditPost').addEventListener('click', function(e) {
         e.preventDefault();
         //Get data from form
-        postid = document.querySelector('#post_id').value;
-        page = document.querySelector('#pagename').value;
-        oldpost = document.querySelector('#oldpost').value;
+        postid = document.querySelectorall('#post_id').value;
+        page = document.querySelectorall('#pagename').value;
+        oldpost = document.querySelectorall('#oldpost').value;
         console.log('EditPost clicked!' );
         console.log(`${page}`, `${postid}`);
 
         document.querySelector('#newtext').innerHTML = `
             <form>
-                <textarea class="form-control" id="newpost" value=${oldpost}></textarea>
+                <textarea class="form-control" id="newpost" ></textarea>
                 <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${page}, ${postid})">
                 <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
             </form>
