@@ -11,7 +11,7 @@
                 <div class="row"  width="1700px">
                     <div class="col-lg-2">
                         <p><a href= "{% url 'network:profile' F.User %}"  >  {{F.User |title}} </a>
-                        </div>
+                    </div>
                     <div class="col-lg-4">
                          <p> {{F.Post}} </p>
                     </div>
@@ -36,7 +36,6 @@
                        <p>  {{F.id}}</p>
                        <input type="hidden" id="post_id"  value ={{F.id}} >
                        <input type="hidden" id="pagename"  value ="following" >
-
                        <div id="likes">
                        </div>
                     </div>
