@@ -50,6 +50,18 @@ class Posts(models.Model):
     def TotalUnLikes(self):
         return self.Unlikes.all().count()
 
-
     def __str__(self):
         return f"({self.User})({self.Post})({self.Date}) ({self.Likes}) ({self.Unlikes}) "
+
+class PostsLikes(models.Model):
+    User = models.ForeignKey('User', on_delete = models.CASCADE)
+    Posts = models.ForeignKey('Posts', on_delete = models.CASCADE )
+    Likes = models.BooleanField(default=False)
+    Unlikes = models.BooleanField(default=False)
+
+    @property
+    def TotalLikes(self):
+        return self.Likes.all().count()
+
+    def __str__(self):
+        return f"({self.User})({self.Posts})({self.Likes}) ({self.Unlikes})"
