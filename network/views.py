@@ -299,7 +299,6 @@ def followme(request):
             if data['fornot'] == "Unfollow":
                 ProfToChange1.Follower.remove(data['follower'])
                 ProfToChange1.save()
-
                 ProfToChange1.Follower.remove(data['id'])
                 ProfToChange2.save()
 
@@ -312,19 +311,22 @@ def followme(request):
 
 @login_required
 @csrf_exempt
-def editpost_view(page, postid):
+def editpost_view(request):
     if request.method == "PUT":
         data = json.loads(request.body)
-        Posttochange = Posts.objects.get(User=data['id'])
+        Posttochange = Posts.objects.get(User=data['postid'])
         Relatedpage = data["page"]
         ReplaceText = data["newtext"]
-        
+        try:
+            Posttochange.Post=ReplaceText
+            Posttochange.save()
+            return JsonResponse({"message": "Post successfully changed "}, status=201)
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": f"{e} "  })
 
 
-
-
-
-        return JsonResponse({"message": "Post successfully changed."}, status=201)
     else:
         return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
 
