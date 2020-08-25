@@ -25,16 +25,17 @@ def index(request):
         result_list = []
         result_list = allposts()
         paginator = Paginator(result_list, 10)
-        print(paginator.count , paginator.num_pages )
+        #print(paginator.count , paginator.num_pages )
 
         page_number = request.GET.get('page')
         page_itens = paginator.get_page(page_number)
-        print("ALL POSTS PAGE")
-        print(page_itens)
+        #print("ALL POSTS PAGE")
+        #print(page_itens)
 
         context={
             "NewPostForm":NewPostForm(),
             "page_obj": page_itens,
+            "UserEdit" : request.user.username,
         }
         return render(request, "network/index.html", context)
 
@@ -109,62 +110,64 @@ def register(request):
 @login_required
 @csrf_exempt
 def profile(request,username):
-    profile= []
-    UserPosts = []
-    TFollowers = 0
-    TFollowing = 0
+    if request.user.is_authenticated:
+        profile= []
+        UserPosts = []
+        TFollowers = 0
+        TFollowing = 0
 
-    searchuser = username
-    userid = User.objects.filter(username=searchuser).values('id')
-    for u in userid:
-        User_id = int(u['id'])
+        searchuser = username
+        userid = User.objects.filter(username=searchuser).values('id')
+        for u in userid:
+            User_id = int(u['id'])
 
-    profile = Profile.objects.filter(User=User_id )
-    UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
+        profile = Profile.objects.filter(User=User_id )
+        UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
 
-    for FS in profile:
-        TFollowers = FS.Follower.all().count() #total followers
-        UFollowers = FS.Follower.all() #followers names
+        for FS in profile:
+            TFollowers = FS.Follower.all().count() #total followers
+            UFollowers = FS.Follower.all() #followers names
 
-    for FG in profile:
-        TFollowing = FG.Following.all().count() #total following
-        UFollowing = FG.Following.all() #following names
+        for FG in profile:
+            TFollowing = FG.Following.all().count() #total following
+            UFollowing = FG.Following.all() #following names
 
-    if request.user.id == User_id:
-        ShowFollowornot = "no"
+        if request.user.id == User_id:
+            ShowFollowornot = "no"
+        else:
+            ShowFollowornot = "yes"
+
+
+        if request.user in UFollowers:
+           btnfollow = "Unfollow"
+        else:
+            btnfollow = "Follow"
+
+        paginator = Paginator(UserPosts, 10)
+        page_number = request.GET.get('page')
+        page_itens = paginator.get_page(page_number)
+
+        #print("PROFILE PAGE")
+        #print(paginator.count , paginator.num_pages )
+        #print(page_itens)
+        context={
+            "User":searchuser,
+            "Profiles":profile,
+            "TotalFollowers":TFollowers,
+            "TotalFollowing":TFollowing,
+            "ShowFollowornot" :ShowFollowornot,
+            "btnfollow" : btnfollow,
+            "UserFollowers":UFollowers,
+            "Userfollowing":UFollowing ,
+            "page_obj": page_itens,
+            "UserEdit" : request.user.username,
+        }
+        return render(request, "network/profile.html", context)
     else:
-        ShowFollowornot = "yes"
-
-
-    if request.user in UFollowers:
-        btnfollow = "Unfollow"
-    else:
-        btnfollow = "Follow"
-
-    paginator = Paginator(UserPosts, 10)
-    page_number = request.GET.get('page')
-    page_itens = paginator.get_page(page_number)
-
-    print("PROFILE PAGE")
-    print(paginator.count , paginator.num_pages )
-    print(page_itens)
-
-
-
-    context={
-        "User":searchuser,
-        "Profiles":profile,
-        "TotalFollowers":TFollowers,
-        "TotalFollowing":TFollowing,
-        "ShowFollowornot" :ShowFollowornot,
-        "btnfollow" : btnfollow,
-        "UserFollowers":UFollowers,
-        "Userfollowing":UFollowing ,
-        "page_obj": page_itens,
-
-    }
-    return render(request, "network/profile.html", context)
-
+        context={
+            "Message": "Please Login or join our Network",
+        }
+        return render(request, "network/login.html", context)
 
 
 @login_required
@@ -182,8 +185,8 @@ def post_view(request,username):
                 paginator = Paginator(allposts(), 10)
                 page_number = request.GET.get('page')
                 page_itens = paginator.get_page(page_number)
-                print("ALL POSTS PAGE")
-                print(paginator.count , paginator.num_pages )
+                #print("ALL POSTS PAGE")
+                #print(paginator.count , paginator.num_pages )
 
                 context={
                     "NewPostForm":NewPostForm(),
@@ -197,6 +200,7 @@ def post_view(request,username):
             context={
                "NewPostForm":NewPostForm(),
                "page_obj": allposts(),
+               "Username":username,
             }
             return render(request, "network/index.html", context)
 
