@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from . import views
-from .models import User, Profile, Posts
+from .models import User, Profile, Posts, PostsLikes
 
 
 class NewPostForm(forms.Form):
@@ -310,13 +310,34 @@ def followme(request):
 
     return HttpResponse(status=204)
 
+@login_required
+@csrf_exempt
+def editpost_view(page, postid):
+    if request.method == "PUT":
+        data = json.loads(request.body)
 
-def editpost_view(postid):
-    return JsonResponse({"message": "Post successfully changed."}, status=201)
 
-def likes_view(postid, flag):
-    return JsonResponse({"message": "Like Status changed."}, status=201)
 
+
+
+        return JsonResponse({"message": "Post successfully changed."}, status=201)
+    else:
+        return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
+
+@login_required
+@csrf_exempt
+def likes_view(page, postid, flag):
+    if request.method == "PUT":
+        data = json.loads(request.body)
+
+
+
+
+
+
+        return JsonResponse({"message": "Like Status changed."}, status=201)
+    else:
+        return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
 
 
 
