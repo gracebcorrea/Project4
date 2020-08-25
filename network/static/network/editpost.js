@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
         //Get data from form
         postid = document.getElementById('post_id').value;
         page = document.getElementById('pagename').value;
+        oldpost = document.getElementById('oldtext').value;
         console.log(page,postid)
+        document.querySelector('#newtext').innerHTML = `
+                <form>
+                    <textarea class="form-control">oldpost</textarea>
+                    <input id="submit" type="submit" class="btn btn-primary"/>
+
+                </form>
 
 
 
@@ -16,9 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-        newtext = document.querySelector('#newtext').value;
+        `
+        //newtext = document.querySelector('#newtext').value;
 
 
 
