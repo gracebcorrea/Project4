@@ -53,11 +53,12 @@
                         <p> {{ U.User |title }} </p>
                         <input type="hidden" id="post_id"  value ={{U.id}} >
                         <input type="hidden" id="pagename" value ="profile" >
+                        <input type="hidden" id="oldpost" value={{U.Post}} >
                         {% if UserEdit|title == U.User|title %}
-                           <p><a href="" id="EditPost" > Edit Post  </a></p>
+                           <p><a href="{{U.id}}" id="EditPost" > Edit Post  </a></p>
                         {% endif %}
                    </div>
-                   <div class="col-lg-3" id="oldpost" value={{U.Post}}>
+                   <div class="col-lg-3" >
                        <p > {{U.Post}} </p>
                        <div id="newtext">
                        </div>
