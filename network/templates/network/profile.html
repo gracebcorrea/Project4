@@ -51,11 +51,10 @@
               <div class="row"  width="1700px">
                    <div class="col-lg-2">
                         <p> {{ U.User |title }} </p>
-
+                        <input type="hidden" id="post_id"  value ={{U.id}} >
+                        <input type="hidden" id="pagename"  value ="profile" >
                         {% if UserEdit|title == U.User|title %}
-
-                           <p><a href="" > Edit Post  </a></p>
-
+                           <p><a href="" id="EditPost" > Edit Post  </a></p>
                         {% endif %}
                    </div>
                    <div class="col-lg-3">
@@ -83,8 +82,7 @@
                    <div class="col-lg-2">
                              <p> falta like, deslike</p>
                                {{U.id}}
-                               <input type="hidden" id="post_id"  value ={{U.id}} >
-                               <input type="hidden" id="pagename"  value ="profile" >
+
                                <div id="likes">
                              </div>
                    </div>
