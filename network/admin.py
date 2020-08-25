@@ -10,3 +10,4 @@ class Admin(admin.ModelAdmin):
 admin.site.register(User)
 admin.site.register(Profile)
 admin.site.register(Posts)
+admin.site.register(PostsLikes)
