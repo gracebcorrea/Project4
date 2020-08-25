@@ -149,7 +149,7 @@ def profile(request,username):
 
         #print("PROFILE PAGE")
         #print(paginator.count , paginator.num_pages )
-        #print(page_itens)
+        print(UserPosts)
         context={
             "User":searchuser,
             "Profiles":profile,
@@ -161,6 +161,7 @@ def profile(request,username):
             "Userfollowing":UFollowing ,
             "page_obj": page_itens,
             "UserEdit" : request.user.username,
+
         }
         return render(request, "network/profile.html", context)
     else:
