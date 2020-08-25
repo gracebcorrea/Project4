@@ -27,7 +27,7 @@
               <div class="row"  width="1700px">
                   <div class="col-lg-1">
                       <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
-                      {{A.id}}
+
                       {% if UserEdit == A.username %}
                              <p><a href="" >Edit Post  </a> </p>
                       {%endif%}
@@ -60,6 +60,11 @@
                       </div>
                       <div class="col-lg-1">
                          <p> FALTA O like DESLIKE </p>
+                           {{A.id}}
+                           <input type="hidden" id="post_id"  value = {{A.id}} >
+                           <input type="hidden" id="pagename"  value ="post" >
+                         <div id="likes">
+                         </div>
                       </div>
                   </div>
           </div>
