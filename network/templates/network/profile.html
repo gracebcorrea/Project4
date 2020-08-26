@@ -55,13 +55,15 @@
                         <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                         <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                         {% if UserEdit|title == Post.User|title %}
-                           <p><a href="" id="EditPost-{{Post.id}}" > Edit Post  </a></p>
+                           <p><a href="" id="EditPost-{{Post.id}}" onclick="querypost({{Post.id}},'profile',oldpost-{{Post.id}})"> Edit Post  </a></p>
                         {% endif %}
                    </div>
-                   <div class="col-lg-3" id="oldtext-{{Post.id}}">
-                       <p > {{U.Post}} </p>
-                   </div>
-                   <div class="col-lg-3"id="newtext-{{Post.id}}">
+                    <div class="col-lg-3" id="posttext">
+                        <div id="oldtext">
+                           <p > {{U.Post}} </p>
+                        </div>
+                        <div id="newtext">
+                        </div>
                    </div>
                    <div class="col-lg-1" style="text-align: center;">
                         {% if Post.Likes == None%}
