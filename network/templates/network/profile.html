@@ -51,7 +51,7 @@
               <div class="row"  width="1700px">
                    <div class="col-lg-2">
                         <p> {{ Post.User |title }} </p>
-                        <input type="hidden" id="post_id-{{Post.id}}"  value ={{Post.id}} >
+                        <input type="hidden" id="postid-{{Post.id}}"  value ={{Post.id}} >
                         <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                         <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                         {% if UserEdit|title == Post.User|title %}
