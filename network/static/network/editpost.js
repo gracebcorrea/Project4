@@ -1,8 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#oldtext').style.display = 'block';
   document.querySelector('#newtext').style.display = 'none';
+
 });
 
+function openedit(Postid){
+  document.querySelector('#oldtext').style.display = 'none';
+  document.querySelector('#newtext').style.display = 'block';
+}
 
 function changepost(postid, page){
   console.log('Inside changepost');
