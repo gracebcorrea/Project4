@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+
   document.querySelector(`#EditPost-${Post.id}`).addEventListener('click', function(e) {
         e.preventDefault();
         //Get data from form
-        postid = document.querySelector(`#post_id-${Post.id}`).value;
+        postid = document.querySelector(`#postid-${Post.id}`).value;
         page = document.querySelector(`#pagename-${Post.id}`).value;
         oldpost = document.querySelector(`#oldpost-${Post.id}`).value;
         console.log('EditPost clicked!' );
