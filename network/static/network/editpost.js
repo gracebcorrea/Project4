@@ -1,6 +1,11 @@
-
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('#oldtext').style.display = 'block';
+  document.querySelector('#newtext').style.display = 'none';
+});
 
 function query_post(postid, page, oldpost){
+  document.querySelector('#oldtext').style.display = 'none';
+  document.querySelector('#newtext').style.display = 'block';
 
   //Get data from form
   const spostid = postid;
