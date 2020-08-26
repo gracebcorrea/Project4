@@ -22,46 +22,46 @@
 
 
   {% if page_obj|length > 0 %}
-      {% for A in page_obj %}
+      {% for Post in page_obj %}
           <div class="container" style="width:90%; position:relative; top:100px;background-image: linear-gradient(to top left, #000033, gray,	 #000033 );">
               <div class="row"  width="1700px">
                   <div class="col-lg-1">
-                      <p><a href="{% url 'network:profile' A.username %}" >  {{A.username |title}} </a> </p>
-                      <input type="hidden" id="post_id"  value = {{A.id}} >
+                      <p><a href="{% url 'network:profile' Post.username %}" >  {{Post.username |title}} </a> </p>
+                      <input type="hidden" id="post_id"  value = {{Post.id}} >
                       <input type="hidden" id="pagename"  value ="post" >
-                      {% if UserEdit == A.username %}
+                      {% if UserEdit == Post.username %}
                              <p><a href="" id="EditPost">Edit Post  </a> </p>
                       {%endif%}
                   </div>
                   <div class="col-lg-2">
-                          <img src="/media/{{A.Avatar}} "  class="img-responsive" style="width: 80px;"   />
+                          <img src="/media/{{Post.Avatar}} "  class="img-responsive" style="width: 80px;"   />
                   </div>
                   <div class="col-lg-3">
-                        <p> {{A.Post}} </p>
+                        <p> {{Post.Post}} </p>
                         <div id="EditPost">
                        </div>
                   </div>
                   <div class="col-lg-1" style="text-align: center;">
-                           {%if A.Likes == None%}
+                           {%if Post.Likes == None%}
                              <p> 0 <i class="fas fa-thumbs-up"></i></p>
                            {% else %}
-                              <p> {{ A.Likes }}  <i class="fas fa-thumbs-up"></i></p>
+                              <p> {{ Post.Likes }}  <i class="fas fa-thumbs-up"></i></p>
                            {% endif %}
                   </div>
                   <div class="col-lg-1" style="text-align: center;">
-                           {%if A.Unlikes  == None%}
+                           {%if Post.Unlikes  == None%}
                                 <p> 0  <i class="fas fa-thumbs-down"></i></p>
                             {% else %}
-                                <p> {{ A.Unlikes }}  <i class="fas fa-thumbs-down"></i></p>
+                                <p> {{ Post.Unlikes }}  <i class="fas fa-thumbs-down"></i></p>
                             {% endif %}
 
                       </div>
                       <div class="col-lg-3">
-                         <p> {{A.Date}} </p>
+                         <p> {{Post.Date}} </p>
                       </div>
                       <div class="col-lg-1">
                          <p> FALTA O like DESLIKE </p>
-                           {{A.id}}
+                           {{Post.id}}
 
                          <div id="likes">
                          </div>
