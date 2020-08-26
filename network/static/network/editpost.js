@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
             </form> `
 
-
-        console.log(newtext});
-
 });
 });
 
