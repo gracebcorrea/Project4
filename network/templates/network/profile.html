@@ -56,12 +56,12 @@
                         <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                         <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                         {% if UserEdit|title == Post.User|title %}
-                           <p><a href="" id="EditPost-{{Post.id}}" onclick="querypost({{Post.id}},'profile',oldpost-{{Post.id}})"> Edit Post  </a></p>
+                           <p><a href="" id="EditPost-{{Post.id}}" onclick="query_post({{Post.id}},'profile',{{Post.Post}})"> Edit Post  </a></p>
                         {% endif %}
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
                         <div id="oldtext">
-                           <p > {{U.Post}} </p>
+                           <p > {{Post.Post}} </p>
                         </div>
                         <div id="newtext">
                         </div>
