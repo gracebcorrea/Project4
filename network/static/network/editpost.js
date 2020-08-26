@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  document.querySelector(`#EditPost-${Post.id}`).addEventListener('click', function(e) {
+  document.querySelector(`#oldtext-${Post.id}`).style.display = "block";
+  document.querySelector(`#newtext-${Post.id}`).style.display = "none";
+
+  document.querySelector(`#EditPost-${id}`).addEventListener('click', function(e) {
         e.preventDefault();
         //Get data from form
-        postid = document.querySelector(`#postid-${Post.id}`).value;
-        page = document.querySelector(`#pagename-${Post.id}`).value;
-        oldpost = document.querySelector(`#oldpost-${Post.id}`).value;
+        postid = document.querySelector(`#postid-${id}`).value;
+        page = document.querySelector(`#pagename-${id}`).value;
+        oldpost = document.querySelector(`#oldpost-${id}`).value;
         console.log('EditPost clicked!' );
         console.log(`${page}`, `${postid}`, `${oldpost}`);
 
-        document.querySelector(`#newtext-${Post.id}`).innerHTML = `
+        document.querySelector(`#newtext-${id}`).innerHTML = `
             <form>
-                <textarea class="form-control" id="newpost-${Post.id}" ></textarea>
+                <textarea class="form-control" id="newpost-${id}" ></textarea>
                 <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${page}, ${postid});">
                 <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
             </form> `
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function changepost( page, postid){
   const url = `/${page}/${postid}`;
-  newtext = document.querySelector(`#newpost-${Post.id}`).value;
+  newtext = document.querySelector(`#newpost-${id}`).value;
   fetch(url, {
     method: "PUT",
     body: JSON.stringify({
