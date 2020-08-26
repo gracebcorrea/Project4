@@ -4,14 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function query_post(postid, page, oldpost){
+  const spostid = postid;
+  const spage = page;
+  const soldpost = oldpost;
+  alert('EditPost clicked!');
   document.querySelector('#oldtext').style.display = 'none';
   document.querySelector('#newtext').style.display = 'block';
 
   //Get data from form
-  const spostid = postid;
-  const spage = page;
-  const soldpost = oldpost;
-  console.log('EditPost clicked!' );
+
   console.log(`${spostid}`, `${spage}`, `${soldpost}`);
 
   document.querySelector(`#newtext-${postid}`).innerHTML = `
