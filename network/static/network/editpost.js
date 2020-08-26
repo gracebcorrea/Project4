@@ -1,29 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-
-  document.querySelector(`#oldtext-${Post.id}`).style.display = "block";
-  document.querySelector(`#newtext-${Post.id}`).style.display = "none";
-
-  document.querySelector(`#EditPost-${id}`).addEventListener('click', function(e) {
-        e.preventDefault();
-        //Get data from form
-        postid = document.querySelector(`#postid-${id}`).value;
-        page = document.querySelector(`#pagename-${id}`).value;
-        oldpost = document.querySelector(`#oldpost-${id}`).value;
-        console.log('EditPost clicked!' );
-        console.log(`${page}`, `${postid}`, `${oldpost}`);
-
-        document.querySelector(`#newtext-${id}`).innerHTML = `
-            <form>
-                <textarea class="form-control" id="newpost-${id}" ></textarea>
-                <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${page}, ${postid});">
-                <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
-            </form> `
-
-});
-});
 
 
-function changepost( page, postid){
+function query_post(postid, page, oldpost){
+
+  //Get data from form
+  const spostid = postid;
+  const spage = page;
+  const soldpost = oldpost;
+  console.log('EditPost clicked!' );
+  console.log(`${spostid}`, `${spage}`, `${soldpost}`);
+
+  document.querySelector(`#newtext-${postid}`).innerHTML = `
+      <form>
+          <textarea class="form-control" id="newpost-${postid}" >${oldpost}</textarea>
+          <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${page}, ${postid},${oldpost});">
+          <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
+      </form> `
+
+}
+
+
+function changepost( page, postid, newpost){
   const url = `/${page}/${postid}`;
   newtext = document.querySelector(`#newpost-${id}`).value;
   fetch(url, {
