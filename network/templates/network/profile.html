@@ -60,15 +60,11 @@
                         {% endif %}
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
-                        <div id="oldtext-{{Post.id}}" class="hideold">
+                        <div id="oldtext-{{Post.id}}" class="hideold" data-postid="{{post.id}}">
                            <p > {{Post.Post}} </p>
                         </div>
-                        <div id="newtext-{{Post.id}}" class="hidenew">
-                          <form class="form-control" id="fnewtext-{{Post.id}}">
-                              <textarea class="form-control" id="newpost-{{Post.id}}" >{{Post.Post}}</textarea>
-                              <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( {{Post.id}}, 'profile');">
-                              <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
-                          </form>
+                        <div id="newtext-{{Post.id}}" class="hidenew" data-postid="{{post.id}}">
+
                         </div>
                    </div>
                    <div class="col-lg-1" style="text-align: center;">
