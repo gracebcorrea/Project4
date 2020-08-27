@@ -1,12 +1,31 @@
+document.addEventListener('DOMContentLoaded', function () {
+  default(Postid);
+  // If edit post link is clicked, hide old post and open to edit
+document.addEventListener('click', event => {
+
+    // Find what was clicked on
+    const element = event.target;
+    openedit(Postid);
+
+
+
+
+
+}
+
+
+
+
 function default(Postid){
-  document.querySelector('#oldtext').style.display = 'block';
-  document.querySelector('#newtext').style.display = 'none';
+
+  document.querySelector(`#oldtext-${Post.id}`).style.display = 'block';
+  document.querySelector(`#newtext-${Post.id}`).style.display = 'none';
 }
 
 function openedit(Postid){
-  document.querySelector('#oldtext').style.display = 'none';
-  document.querySelector('#newtext').style.display = 'block';
-  document.querySelector('#newtext-`${Postid}`').style.display = 'block';
+  document.querySelector(`#oldtext-${Post.id}`).style.display = 'none';
+  document.querySelector(`#newtext-${Post.id}`).style.display = 'block';
+  document.querySelector(`#fnewtext-${Postid}`).style.display = 'block';
 }
 
 function changepost(postid, page){
