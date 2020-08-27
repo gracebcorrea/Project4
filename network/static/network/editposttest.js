@@ -29,16 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 
-function openedit(Postid){
+function openedit(postid){
+  var oldtext = document.getElementById(`oldtext-${postid}`).innerHTML;
+  document.querySelector(`#oldtext-${postid}`).remove();
+  document.querySelector(`#newtext-${postid}`).style.display = 'block';
 
-  document.querySelector(`#oldtext-${Postid}`).style.display = 'none';
-  document.querySelector(`#newtext-${Postid}`).style.display = 'block';
-  document.querySelector(`#fnewtext-${Postid}`).style.display = 'block';
-  <form class="form-control" id="fnewtext-{{Post.id}}" data-postid="{{post.id}}">
-      <textarea class="form-control" id="newpost-{{Post.id}}" >{{Post.Post}}</textarea>
-      <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( {{Post.id}}, 'profile');">
+  const newtext = document.querySelector(`#newtext-${postid}`);
+  const detailpart = document.createElement('form');
+  detailpart.innerHTML= `
+      <textarea class="form-control" id="newpost-${postid}" >${oldtext}</textarea>
+      <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${postid}, 'profile');">
       <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
-  </form>
+      `;
+  newtext.append(detailpart);
+  alert("Está voando aqui");
 }
 
 function changepost(postid, page){
