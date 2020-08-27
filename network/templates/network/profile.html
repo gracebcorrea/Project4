@@ -56,14 +56,14 @@
                         <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                         <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                         {% if UserEdit|title == Post.User|title %}
-                           <p><a href="" id="openedit-{{Post.id}}" onclick="openedit(Post.id);"> Edit Post  </a></p>
+                           <p><a href="" id="openedit-{{Post.id}}" > Edit Post  </a></p>
                         {% endif %}
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
-                        <div id="oldtext-{{Post.id}}" class="hide">
+                        <div id="oldtext-{{Post.id}}" class="hideold">
                            <p > {{Post.Post}} </p>
                         </div>
-                        <div id="newtext-{{Post.id}}">
+                        <div id="newtext-{{Post.id}}" class="hidenew">
                           <form class="form-control" id="fnewtext-{{Post.id}}">
                               <textarea class="form-control" id="newpost-{{Post.id}}" >{{Post.Post}}</textarea>
                               <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( {{Post.id}}, 'profile');">
