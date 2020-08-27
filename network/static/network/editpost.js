@@ -1,16 +1,15 @@
 function openedit(postid){
   var oldtext = document.getElementById(`oldtext-${postid}`).innerHTML;
   document.querySelector(`#oldtext-${postid}`).remove();
-  document.querySelector(`#newtext--${postid}`).style.display = 'block';
+  document.querySelector(`#newtext-${postid}`).style.display = 'block';
 
   const newtext = document.querySelector(`#newtext-${postid}`);
   const detailpart = document.createElement('form');
   detailpart.innerHTML= `
-      <form class="form-control" id="fnewtext-${postid}" style="width:100%;">
-         <textarea class="form-control" id="newpost-${postid}" >${oldtext}</textarea>
-         <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${postid}, 'profile');">
-         <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
-      </form>`;
+      <textarea class="form-control" id="newpost-${postid}" >${oldtext}</textarea>
+      <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${postid}, 'profile');">
+      <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
+      `;
   newtext.append(detailpart);
   alert("Está voando aqui");
 }
