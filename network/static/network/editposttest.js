@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
-
 function openedit(postid){
-  var oldtext = document.getElementById(`oldtext-${postid}`).innerHTML;
-  document.querySelector(`#oldtext-${postid}`).remove();
+  //var oldtext = document.getElementById(`oldtext-${postid}`).innerHTML;
+  var oldtext = document.getElementById(`oldtext-${postid}`).value;
+  document.querySelector(`#oldtext-${postid}`).style.display = 'none';
   document.querySelector(`#newtext-${postid}`).style.display = 'block';
 
   const newtext = document.querySelector(`#newtext-${postid}`);
@@ -42,7 +42,8 @@ function openedit(postid){
       <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
       `;
   newtext.append(detailpart);
-  alert("Está voando aqui");
+
+  alert(`${oldtext}`);
 }
 
 function changepost(postid, page){
