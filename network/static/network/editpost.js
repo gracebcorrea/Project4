@@ -1,29 +1,40 @@
-function openedit(postid, oldtext) {
-  var x = document.getElementById(`oldtext-${postid}`);
-  var y = document.getElementById(`newtext-${postid}`);
+var textoAntigo;
 
-  if (x.style.display === "none") {
-      x.style.display = "block";
-      y.style.display = "none";
-  }
-  else {
-      x.style.display = "none";
-      y.style.display = "block";
-  }
+function editarTexto(Postid)
+{
+    var p = document.getElementById(`${Postid}`);
+    var div = document.getElementById(`post-${Postid}`);
+    textoAntigo = p.innerText;
 
-  const oldpost = document.getElementById(`oldtext-${postid}`);
-  oldpost.innerHTML= `<p> ${oldtext} </p> `;
-  x.append(oldpost);
-
-  const newpost = document.createElement('form');
-  newpost.innerHTML= `
-      <textarea class="form-control" id="newpost-${postid}" >${oldtext}</textarea>
-      <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${postid}, 'profile');">
-      <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
-      `;
-  y.append(newpost);
-
+    div.innerHTML = `<textarea id=${Postid}> ${textoAntigo} </textarea>`;
+    document.getElementById(`change-${Postid}` ).style.display = "block";
+    document.getElementById(`cancel-${Postid}`).style.display = "block";
 }
+
+function retornaTexto( )
+{
+    escreveTexto( textoAntigo );
+}
+
+function confirmaTexto(Postid)
+{
+    var textArea = document.getElementById(`${Postid}`);
+    texto = textArea.value;
+    escreveTexto( texto );
+}
+
+function escreveTexto( texto )
+{
+    var div = document.getElementById(`post-${Post.id}`);
+
+    div.innerHTML = `<p id=${Postid}>"+ texto +"</p>`;
+    document.getElementById(`change-${Postid}` ).style.display = "none";
+    document.getElementById(`cancel-${Postid}`).style.display = "none";
+}
+
+
+
+
 
 
 
