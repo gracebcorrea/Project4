@@ -52,20 +52,20 @@
               <div class="row"  width="1700px">
                    <div class="col-lg-2" style="text-align: center;">
                         <p> {{ Post.User |title }} </p>
-                        <input type="hidden" id="postid-{{Post.id}}"  value ={{Post.id}} >
+                        <!--<input type="hidden" id="postid-{{Post.id}}"  value ={{Post.id}} >
                         <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
-                        <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
+                        <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >-->
                         {% if UserEdit|title == Post.User|title %}
-                           <p><a href="" id="openedit-{{Post.id}}" onclick=openedit({{Post.id}},{{Post.Post}})> Edit Post  </a></p>
+                           <p><a href="" id="edit-{{Post.id}}" onclick="editarTexto({{Post.id}})"> Edit Post  </a></p>
                         {% endif %}
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
-                        <div id="oldtext-{{Post.id}}" data-edit="oldtext-{{Post.id}}" >
-                            <p > {{Post.Post}} </p>
+                        <div id="post-{{Post.id}}" data-edit="post-{{Post.id}}" value={{Post.Post}} >
+                            <p id={{Post.id}}> {{Post.Post}} </p>
                         </div>
-                        <div id="newtext-{{Post.id}}"  data-edit="newtext-{{Post.id}}">
-                        </div>
-                   </div>
+                        <button id="change-{{Post.id}}"  onClick="confirmaTexto()" class="btn btn-success" style="width:45%;Display: none">Change</button>
+                        <button id="cancel-{{Post.id}}" onClick="retornaTexto()" class="btn btn-danger" style="width:45%;Display: none">Cancel</button>
+                     </div>
                    <div class="col-lg-1" style="text-align: center;">
                         {% if Post.Likes == None%}
                                <p> 0 <i class="fas fa-thumbs-up"></i></p>
