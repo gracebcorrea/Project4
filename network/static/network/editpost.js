@@ -1,39 +1,38 @@
-var textoAntigo;
 
-function editarTexto(Postid)
-{
-    var p = document.getElementById(`${Postid}`);
-    var div = document.getElementById(`post-${Postid}`);
-    textoAntigo = p.innerText;
+function editarTexto(Postid) {
+    var div = document.getElementById(`post-${Postid}`);// div dos elementos que devem aparecer e desaparecer
+    var p = document.getElementById(`${Postid}`); //campo de texto a ser substituido
 
-    div.innerHTML = `<textarea id=${Postid}> ${textoAntigo} </textarea>
-    <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:35%;Display: block;">Change</button>
-    <button id="cancel-${Postid}" class="btn btn-danger"  type="cancel"style="width:35%;Display: block;">Cancel</button>
+    var textoAntigo = p.innerHTML;
+    
+    p.innerHTML = `
+      <textarea id=${Postid} style="width:100%;"> ${textoAntigo} </textarea>
+      <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:30%;Display: block;">Change</button>
+      <button id="cancel-${Postid}" class="btn btn-danger"  type="cancel"style="width:30%;Display: block;">Cancel</button>
     `;
+    div.append(p);
+
 
 }
 
-function retornaTexto( )
-{
+function retornaTexto( ){
     escreveTexto( textoAntigo );
 }
 
-function confirmaTexto(Postid)
-{
+function confirmaTexto(Postid){
     var textArea = document.getElementById(`${Postid}`);
     texto = textArea.value;
     escreveTexto( texto );
 }
 
-function escreveTexto( texto )
-{
+function escreveTexto( texto ){
     var div = document.getElementById(`post-${Post.id}`);
 
     div.innerHTML = `<p id=${Postid}>"+ texto +"</p>
-    <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:35%;Display: block;">Change</button>
-    <button id="cancel-${Postid}" class="btn btn-danger" type="cancel" style="width:35%;Display: block;">Cancel</button>
+    <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:30%;Display: block;">Change</button>
+    <button id="cancel-${Postid}" class="btn btn-danger" type="cancel" style="width:30%;Display: block;">Cancel</button>
     `;
-
+    window.stop() ;
 }
 
 
