@@ -1,22 +1,28 @@
-function openedit(postid){
-  //var oldtext = document.getElementById(`oldtext-${postid}`).innerHTML;
-  var oldtext = document.getElementById(`oldtext-${postid}`).value;
-  document.querySelector(`#oldtext-${postid}`).style.display = 'none';
-  document.querySelector(`#newtext-${postid}`).style.display = 'block';
+function openedit(postid) {
+  var x = document.getElementById(`oldtext-${postid}`);
+  var y = document.getElementById(`newtext-${postid}`);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "block";
+  }
 }
 
 
 
 function changepost(postid, page){
-  console.log('Inside changepost');
+  alert('Inside changepost');
   const url = `/${page}/${postid}`;
-  newtext = document.querySelector(`#newpost-${spostid}`).value;
+  const newtext = document.getElementById(`#newpost-${postid}`).innerHTML;
+  alert(`${newtext}`);
   fetch(url, {
     method: "PUT",
     body: JSON.stringify({
        postid:`${postid}`,
        page: `${page}`,
-       newtext:`${newpost}`,
+       newtext:`${newtext}`,
     })
   })
   .then(response => response.json())
