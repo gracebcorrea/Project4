@@ -3,7 +3,7 @@
 
 {% block body %}
 
-  <h1>{{ User }}´s Profile</h1>
+  <h1>{{ User|title }}´s Profile</h1>
 
   <hr>
 
@@ -61,7 +61,7 @@
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
                         <div id="oldtext-{{Post.id}}" data-edit="oldtext-{{Post.id}}" >
-                           <p > {{Post.Post}} </p>
+                            <p > {{Post.Post}} </p>
                         </div>
                         <div id="newtext-{{Post.id}}"  data-edit="newtext-{{Post.id}}">
                         </div>
