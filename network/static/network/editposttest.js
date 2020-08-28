@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
    showold.forEach((so)=> {
      postold = so.getAttribute("data-postid");
-     document.querySelector(`#oldtext-${postold}`).style.display = 'block';
+     document.querySelector(`#old-${postold}`).style.display = 'block';
    })
 
    shownew.forEach((sn)=> {
       postnew= sn.getAttribute("data-postid");
-      document.querySelector(`#newtext-${postnew}`).style.display = 'none';
+      document.querySelector(`#new-${postnew}`).style.display = 'none';
    })
 
 
