@@ -6,9 +6,11 @@ function editarTexto(Postid)
     var div = document.getElementById(`post-${Postid}`);
     textoAntigo = p.innerText;
 
-    div.innerHTML = `<textarea id=${Postid}> ${textoAntigo} </textarea>`;
-    document.getElementById(`change-${Postid}` ).style.display = "block";
-    document.getElementById(`cancel-${Postid}`).style.display = "block";
+    div.innerHTML = `<textarea id=${Postid}> ${textoAntigo} </textarea>
+    <button id="change-${Postid}"  onClick="confirmaTexto()" class="btn btn-success" style="width:40%;Display: block;">Change</button>
+    <button id="cancel-${Postid}" onClick="retornaTexto()" class="btn btn-danger" style="width:40%;Display: block;">Cancel</button>
+    `;
+
 }
 
 function retornaTexto( )
@@ -27,9 +29,11 @@ function escreveTexto( texto )
 {
     var div = document.getElementById(`post-${Post.id}`);
 
-    div.innerHTML = `<p id=${Postid}>"+ texto +"</p>`;
-    document.getElementById(`change-${Postid}` ).style.display = "none";
-    document.getElementById(`cancel-${Postid}`).style.display = "none";
+    div.innerHTML = `<p id=${Postid}>"+ texto +"</p>
+    <button id="change-${Postid}"  onClick="confirmaTexto()" class="btn btn-success" style="width:40%;Display: block;">Change</button>
+    <button id="cancel-${Postid}" onClick="retornaTexto()" class="btn btn-danger" style="width:40%;Display: block;">Cancel</button>
+    `;
+
 }
 
 
