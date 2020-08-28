@@ -7,8 +7,8 @@ function editarTexto(Postid)
     textoAntigo = p.innerText;
 
     div.innerHTML = `<textarea id=${Postid}> ${textoAntigo} </textarea>
-    <button id="change-${Postid}"  class="btn btn-success" style="width:35%;Display: block;">Change</button>
-    <button id="cancel-${Postid}"  class="btn btn-danger" style="width:35%;Display: block;">Cancel</button>
+    <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:35%;Display: block;">Change</button>
+    <button id="cancel-${Postid}" class="btn btn-danger"  type="cancel"style="width:35%;Display: block;">Cancel</button>
     `;
 
 }
@@ -30,8 +30,8 @@ function escreveTexto( texto )
     var div = document.getElementById(`post-${Post.id}`);
 
     div.innerHTML = `<p id=${Postid}>"+ texto +"</p>
-    <button id="change-${Postid}"   class="btn btn-success" style="width:35%;Display: block;">Change</button>
-    <button id="cancel-${Postid}"  class="btn btn-danger" style="width:35%;Display: block;">Cancel</button>
+    <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:35%;Display: block;">Change</button>
+    <button id="cancel-${Postid}" class="btn btn-danger" type="cancel" style="width:35%;Display: block;">Cancel</button>
     `;
 
 }
