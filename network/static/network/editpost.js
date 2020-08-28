@@ -2,6 +2,15 @@ function openedit(postid, oldtext) {
   var x = document.getElementById(`oldtext-${postid}`);
   var y = document.getElementById(`newtext-${postid}`);
 
+  if (x.style.display === "none") {
+      x.style.display = "block";
+      y.style.display = "none";
+  }
+  else {
+      x.style.display = "none";
+      y.style.display = "block";
+  }
+
   const oldpost = document.getElementById(`oldtext-${postid}`);
   oldpost.innerHTML= `<p> ${oldtext} </p> `;
   x.append(oldpost);
@@ -14,13 +23,6 @@ function openedit(postid, oldtext) {
       `;
   y.append(newpost);
 
-  if (x.style.display === "block") {
-    x.style.display = "none";
-    y.style.display = "block";
-  } else {
-    x.style.display = "block";
-    y.style.display = "none";
-  }
 }
 
 
