@@ -37,9 +37,9 @@ function openedit(postid){
   const newtext = document.querySelector(`#newtext-${postid}`);
   const detailpart = document.createElement('form');
   detailpart.innerHTML= `
-      <textarea class="form-control" id="newpost-${postid}" >${oldtext}</textarea>
-      <input type="submit" value="Change" class="btn btn-success" style="width:45%;" onclick="changepost( ${postid}, 'profile');">
-      <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;" onclick="window.location.reload(true);">
+      <textarea class="form-control" id="newpost-${postid}" style="display : block;">${oldtext}</textarea>
+      <input type="submit" value="Change" class="btn btn-success" style="width:45%;display : block;" onclick="changepost( ${postid}, 'profile');">
+      <input type="cancel" value="Cancel" class="btn btn-danger"  style="width:45%;display : block;" onclick="window.location.reload(true);">
       `;
   newtext.append(detailpart);
 
