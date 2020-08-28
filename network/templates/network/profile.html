@@ -60,11 +60,10 @@
                         {% endif %}
                    </div>
                     <div class="col-lg-3" style="text-align: center;">
-                        <div id="post-{{Post.id}}" data-edit="post-{{Post.id}}" value={{Post.Post}} >
+                        <div id="post-{{Post.id}}"   >
                             <p id={{Post.id}}> {{Post.Post}} </p>
                         </div>
-                        <button id="change-{{Post.id}}"  onClick="confirmaTexto()" class="btn btn-success" style="width:45%;Display: none">Change</button>
-                        <button id="cancel-{{Post.id}}" onClick="retornaTexto()" class="btn btn-danger" style="width:45%;Display: none">Cancel</button>
+
                      </div>
                    <div class="col-lg-1" style="text-align: center;">
                         {% if Post.Likes == None%}
