@@ -313,9 +313,14 @@ def followme(request):
 def editpost_view(request):
     if request.method == "PUT":
         data = json.loads(request.body)
-        Posttochange = Posts.objects.get(User=data['postid'])
+        Posttochange = Posts.objects.get(id=data['postid'])
         Relatedpage = data["page"]
-        ReplaceText = data["newtext"]
+        ReplaceText = data["newpost"]
+        print(Posttochange)
+        print(Relatedpage)
+        print(ReplaceText)
+
+
         try:
             Posttochange.Post=ReplaceText
             Posttochange.save()
