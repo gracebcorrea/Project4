@@ -56,18 +56,14 @@
                     <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                     <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                     {% if UserEdit|title == Post.User|title %}
-                       <p> <a href="" id="edit-{{Post.id}}" onclick="editarTexto({{Post.id}})"> Edit Post  </a></p>
+                       <p> <a href="" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')"> Edit Post  </a></p>
                     {% endif %}
                   </div>
                   <div class="col-lg-4" style="text-align: center;">
 
-                        <div id="old-{{Post.id}}"  >
-                            <span id={{Post.id}}> {{Post.Post}} </span>
+                        <div id="post-{{Post.id}}"  >
+                            <p id={{Post.id}}> {{Post.Post}} </p>
                         </div>
-                        <div id="new-{{Post.id}}" >
-
-                        </div>
-
                   </div>
 
                   <div class="col-lg-1" style="text-align: center;">
@@ -102,6 +98,8 @@
     <br>
     <hr>
 
+
+
   <!------------------------Paginator-------------------------------------->
     <form>
        <div class="container" >
@@ -128,11 +126,6 @@
         </ul>
       </div>
     </form>
-
-
-
-
-
 </div>
 
   {% block script %}
@@ -140,14 +133,6 @@
       {% if ShowFollowornot == "yes" %}
          <script type="text/javascript" src="{% static 'network/follow.js' %}" ></script>
       {% endif %}
-      function EditPost(Postid) {
-        document.querySelector(`#old-${Postid}`).style.display = 'none';
-        document.querySelector(`#new-${Postid}`).style.display = 'block';
-      }
-
-
-
-
         <script type="text/javascript" src="{% static 'network/editpost.js' %}" ></script>
   {% endblock %}
 {% endblock %}
