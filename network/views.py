@@ -118,6 +118,7 @@ def profile(request,username):
 
         searchuser = username
         userid = User.objects.filter(username=searchuser).values('id')
+        print(userid)
         for u in userid:
             User_id = int(u['id'])
 
@@ -311,9 +312,10 @@ def followme(request):
 @login_required
 @csrf_exempt
 def editpost_view(request):
+    print("Inside editpost_view")
     if request.method == "PUT":
         data = json.loads(request.body)
-        Posttochange = Posts.objects.get(id=data['postid'])
+        Posttochange = Posts.objects.filter(id=data['postid'])
         Relatedpage = data["page"]
         ReplaceText = data["newpost"]
         print(Posttochange)
@@ -322,12 +324,12 @@ def editpost_view(request):
 
 
         try:
-            Posttochange.Post=ReplaceText
+            Posttochange.Post= ReplaceText
             Posttochange.save()
             return JsonResponse({"message": "Post successfully changed "}, status=201)
 
         except Exception as e:
-            print(e)
+            print("Exception trying to save post edit:",e)
             return JsonResponse({"error": f"{e} "  })
 
 
