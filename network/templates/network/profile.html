@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block body %}
-
   <h1>{{ User|title }}´s Profile</h1>
 
   <hr>
@@ -50,24 +49,23 @@
 <div class="container" style="border:#004d00; width:100%">
     {%for Post in page_obj %}
         <div class="container" style="position:relative; top:100px;background-image: linear-gradient(to top left, white, gray,	 #000033 );">
-              <div class="row"  width="1700px">
+              <div class="row">
                   <div class="col-lg-1" style="text-align: center;">
                     <p> {{ Post.User |title }} </p>
                     <input type="hidden" id="postid-{{Post.id}}"  value ={{Post.id}} >
                     <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                     <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                     {% if UserEdit|title == Post.User|title %}
-                       <p><a href="" id="edit-{{Post.id}}" onclick="EditPost({{Post.id}})"> Edit Post  </a></p>
+                       <p> <a href="" id="edit-{{Post.id}}" onclick="editarTexto({{Post.id}})"> Edit Post  </a></p>
                     {% endif %}
                   </div>
                   <div class="col-lg-4" style="text-align: center;">
-                        <div id="old-{{Post.id}}" style="display:block;" >
-                            <p id={{Post.id}}> {{Post.Post}} </p>
+
+                        <div id="old-{{Post.id}}"  >
+                            <span id={{Post.id}}> {{Post.Post}} </span>
                         </div>
-                        <div id="new-{{Post.id}}" style="display:none;">
-                           <textarea id=${Postid} style="width:100%;"> {{Post.Post}} </textarea>
-                           <button id="change-${Postid}" class="btn btn-success" type="submit" style="width:30%;Display: block;">Change</button>
-                           <button id="cancel-${Postid}" class="btn btn-danger"  type="cancel" style="width:30%;Display: block;">Cancel</button>
+                        <div id="new-{{Post.id}}" >
+
                         </div>
 
                   </div>
@@ -100,8 +98,11 @@
         </div>
         <br>
     {% endfor %}
+
     <br>
     <hr>
+
+  <!------------------------Paginator-------------------------------------->
     <form>
        <div class="container" >
           <ul class="pagination justify-content-center"  >
@@ -134,10 +135,19 @@
 
 </div>
 
-      {% block script %}
+  {% block script %}
+
       {% if ShowFollowornot == "yes" %}
          <script type="text/javascript" src="{% static 'network/follow.js' %}" ></script>
       {% endif %}
+      function EditPost(Postid) {
+        document.querySelector(`#old-${Postid}`).style.display = 'none';
+        document.querySelector(`#new-${Postid}`).style.display = 'block';
+      }
+
+
+
+
         <script type="text/javascript" src="{% static 'network/editpost.js' %}" ></script>
-      {% endblock %}
+  {% endblock %}
 {% endblock %}
