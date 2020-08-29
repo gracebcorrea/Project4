@@ -18,7 +18,7 @@ function editpost(postid, page){
 
 function savenewpost(postid, page){
   const url = `/${page}/${postid}`;
-  
+
   var textarea = document.querySelector(`#post-${postid}`);
   newpost = textarea.value;
 
@@ -36,6 +36,9 @@ function savenewpost(postid, page){
   .then(response => response.json())
   .then(result => {
        console.log(result);
+       alert("Post edit saved!");
+       console.log(result.status);
+       window.location.reload(true);
    })
    .catch((error) => {
        console.error('Error:', error);
