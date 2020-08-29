@@ -50,16 +50,16 @@
     {%for Post in page_obj %}
         <div class="container" style="position:relative; top:100px;background-image: linear-gradient(to top left, white, gray,	 #000033 );">
               <div class="row">
-                  <div class="col-lg-1" style="text-align: center;">
+                  <div class="col-lg-2" style="text-align: center;">
                     <p> {{ Post.User |title }} </p>
                     <input type="hidden" id="postid-{{Post.id}}"  value ={{Post.id}} >
                     <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                     <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                     {% if UserEdit|title == Post.User|title %}
-                       <p> <a href="" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')"> Edit Post  </a></p>
+                       <p> <button class="btn btn-primary" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')"> Edit Post  </button></p>
                     {% endif %}
                   </div>
-                  <div class="col-lg-4" style="text-align: center;">
+                  <div class="col-lg-3" style="text-align: center;">
 
                         <div id="post-{{Post.id}}"  >
                             <p id={{Post.id}}> {{Post.Post}} </p>
