@@ -6,8 +6,8 @@ function editpost(postid, page){
    newtext.innerHTML = `
      <textarea id="post-${postid}"  style="width:100% ;"> ${oldtext} </textarea>
      <form id="form-${postid}" class="form-inline">
-        <button id="change-${postid}" class="btn btn-success"   style="width:30%;Display: block;">Change</button>
-        <button id="cancel-${postid}" class="btn btn-danger"  onclick="window.location.reload(true);"  style="width:30%;Display: block;">Cancel</button>
+        <button id="change-${postid}" class="btn btn-success"   style="width:35%;Display: block;">Change</button>
+        <button id="cancel-${postid}" class="btn btn-danger"  onclick="window.location.reload(true);"  style="width:35%;Display: block;">Cancel</button>
      </form>
    `;
 
@@ -22,7 +22,6 @@ function savenewpost(postid, page){
   var textarea = document.querySelector(`#post-${postid}`);
   newpost = textarea.value;
 
-
   alert(`${newpost}`);
 
   fetch(url, {
@@ -35,12 +34,14 @@ function savenewpost(postid, page){
   })
   .then(response => response.json())
   .then(result => {
-       console.log(result);
+
        alert("Post edit saved!");
        console.log(result.status);
-       window.location.reload(true);
+
    })
    .catch((error) => {
-       console.error('Error:', error);
+       console.error(error);
+       alert(error);
+    
    });
 }
