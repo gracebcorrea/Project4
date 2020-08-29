@@ -54,12 +54,14 @@
                     <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                     <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                     {% if UserEdit|title == Post.User|title %}
-                       <p> <button class="btn btn-primary" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')"> Edit Post  </button></p>
+                       <p> <button class="btn btn-primary" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')">
+                              Edit Post
+                           </button></p>
                     {% endif %}
                   </div>
                   <div class="col-lg-3" style="text-align: center;">
 
-                        <div id="divpost-{{Post.id}}"  >
+                        <div id="divpost-{{Post.id}}">
                             <p id={{Post.id}}> {{Post.Post}} </p>
                         </div>
                   </div>
@@ -131,6 +133,6 @@
       {% if ShowFollowornot == "yes" %}
          <script type="text/javascript" src="{% static 'network/follow.js' %}" ></script>
       {% endif %}
-        <script type="text/javascript" src="{% static 'network/editpost.js' %}" ></script>
+        <script type="text/javascript" src="{% static 'network/editpost.js' %}"></script>
   {% endblock %}
 {% endblock %}
