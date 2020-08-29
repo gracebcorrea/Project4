@@ -6,8 +6,10 @@ function editpost(postid, page){
    newtext.innerHTML = `
      <textarea id="post-${postid}"  style="width:100% ;"> ${oldtext} </textarea>
      <form id="form-${postid}" class="form-inline">
-        <button id="change-${postid}" class="btn btn-success"   style="width:35%;Display: block;">Change</button>
-        <button id="cancel-${postid}" class="btn btn-danger"  onclick="window.location.reload(true);"  style="width:35%;Display: block;">Cancel</button>
+        <button id="change-${postid}" class="btn btn-success" style="width:35%;Display: block;">
+        Change</button>
+        <button id="cancel-${postid}" class="btn btn-danger" onclick="window.location.reload(true);" style="width:35%;Display: block;">
+        Cancel</button>
      </form>
    `;
 
@@ -42,6 +44,6 @@ function savenewpost(postid, page){
    .catch((error) => {
        console.error(error);
        alert(error);
-    
+
    });
 }
