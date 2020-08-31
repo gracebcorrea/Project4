@@ -19,7 +19,7 @@ function editpost(postid, page){
 
 
 function savenewpost(postid, page){
-  const url = `/${page}/${postid}`;
+  const url = `/editpost/${postid}`;
 
   var textarea = document.querySelector(`#post-${postid}`);
   newpost = textarea.value;
@@ -47,3 +47,5 @@ function savenewpost(postid, page){
 
    });
 }
+
+//chrome.exe --user-data-dir="D:\CS50"
