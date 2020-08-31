@@ -121,7 +121,7 @@ def profile(request,username):
         print(userid)
         for u in userid:
             User_id = int(u['id'])
-
+        print(User_id )
         profile = Profile.objects.filter(User=User_id )
         UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
 
