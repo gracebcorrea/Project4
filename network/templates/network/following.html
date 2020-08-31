@@ -11,7 +11,9 @@
                 <div class="row"  width="1700px">
                     <div class="col-lg-2">
                         <p><a href= "{% url 'network:profile' Post.User %}"  >  {{Post.User |title}} </a>
+                        <p>  {{Post.id}}</p>
                     </div>
+
                     <div class="col-lg-4">
                          <p> {{Post.Post}} </p>
                     </div>
@@ -33,11 +35,15 @@
                        <p> {{Post.Date}} </p>
                     </div>
                     <div class="col-lg-1">
-                       <p>  {{Post.id}}</p>
+
                        <input type="hidden" id="post_id"  value ={{Post.id}} >
                        <input type="hidden" id="pagename"  value ="following" >
-                       <div id="likes">
-                       </div>
+                       <p> <button class="btn btn-primary" id="likes-{{Post.id}}" onclick="likepost({{Post.id}},'profile')">
+                            <i class="far fa-thumbs-up"></i>
+                           </button></p>
+                       <p> <button class="btn btn-primary" id="unlikes-{{Post.id}}" onclick="unlikepost({{Post.id}},'profile')">
+                            <i class="far fa-thumbs-down"></i>
+                           </button></p>
                     </div>
 
                 </div>
