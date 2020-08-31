@@ -46,7 +46,7 @@ function savenewpost(postid){
 }
 
 //chrome.exe --user-data-dir="D:\CS50"
-//virtualenv virtualenv
+//virtualenv virtual
 //source virtual/Scripts/activate
 //pip install requests    (verifica se tem atualizaçoes)
 //virtualenv deactivate
