@@ -4,8 +4,8 @@ from django.conf.urls.static import static
 
 
 from . import views
-from .views import index, login_view, logout_view, register, profile, post_view, followme, following_view, editpost_view,likes_view
-
+from .views import index, login_view, logout_view, register, profile, post_view
+from .views import  followme, following_view, editpost_view,likes_view,unlikes_view
 app_name = 'network'
 urlpatterns = [
     path("", views.index, name="index"),
@@ -18,7 +18,8 @@ urlpatterns = [
     path("following", views.following_view, name="following"),
     path("post/<str:username>",views.post_view, name="post"),
     path("editpost",views.editpost_view, name="editpost"),
-    #path("<str:page>/<str:postid>/<str:flag>",views.likes_view, name="likes"),
+    path("liked",views.likes_view, name="likes"),
+    path("unliked",views.unlikes_view, name="unlikes"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
