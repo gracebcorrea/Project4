@@ -13,7 +13,7 @@ function likepost(postid){
     window.location.reload(true);
    })
    .catch((error) => {
-       console.error(error);
+      console.error(error);
       alert(error);
     });
 }
