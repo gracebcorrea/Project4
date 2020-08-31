@@ -345,6 +345,33 @@ def editpost_view(request):
 @login_required
 @csrf_exempt
 def likes_view(request):
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        print(f"DATA JSON", data)
+        id = int(data['postid'])
+        Liketoadd = Posts.objects.get(id=id)
+        if Liketoadd.User == request.user:
+            message = "You cannot like your own post"
+            
+
+
+        try:
+            Liketoadd.Likes += 1
+            Liketoadd.save()
+            return JsonResponse({"message": "Like added! "}, status=201)
+
+        except Exception as e:
+            print("Exception trying to save post edit:",e)
+            return JsonResponse({"error": f"{e} "  })
+    else:
+        return JsonResponse({"message": "Not inside PUT."}, status=400)
+
+
+
+
+@login_required
+@csrf_exempt
+def unlikes_view(request):
     #if request.method == "PUT":
     #    data = json.loads(request.body)
 
@@ -353,11 +380,7 @@ def likes_view(request):
 
 
 
-    return JsonResponse({"message": "Like Status changed."}, status=201)
-    #else:
-    #    return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
-
-
+    return JsonResponse({"message": "unLike Status changed."}, status=201)
 
 
 
