@@ -118,10 +118,10 @@ def profile(request,username):
 
         searchuser = username
         userid = User.objects.filter(username=searchuser).values('id')
-        print(userid)
+        print("inside profile")
         for u in userid:
             User_id = int(u['id'])
-        print(User_id )
+        print(userid, User_id )
         profile = Profile.objects.filter(User=User_id )
         UserPosts = Posts.objects.filter(User=User_id).order_by('-Date')
 
