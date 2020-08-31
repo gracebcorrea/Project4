@@ -314,17 +314,16 @@ def followme(request):
 def editpost_view(request):
     print("Inside editpost_view")
     if request.method == "PUT":
-        data = json.loads(request.body)
-        Posttochange = Posts.objects.filter(id=data['postid'])
-        Relatedpage = data["page"]
-        ReplaceText = data["newpost"]
+        id = request.POST.get('postid')
+        newpost = request.POST.get('newtext')
+        Posttochange = Posts.objects.get(id=id)
+
+        print(id,newpost )
         print(Posttochange)
-        print(Relatedpage)
-        print(ReplaceText)
 
 
         try:
-            Posttochange.Post= ReplaceText
+            Posttochange.Post= newpost
             Posttochange.save()
             return JsonResponse({"message": "Post successfully changed "}, status=201)
 
