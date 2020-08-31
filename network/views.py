@@ -66,7 +66,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse("network:index"))
         else:
             return render(request, "network/login.html", {
-                "message": "Invalid username and/or password."
+                "Message": "Invalid username and/or password."
             })
     else:
         return render(request, "network/login.html")
@@ -86,7 +86,7 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "network/register.html", {
-                "message": "Passwords must match."
+                "Message": "Passwords must match."
             })
         # Attempt to create new user
         try:
@@ -95,7 +95,7 @@ def register(request):
 
         except IntegrityError:
             return render(request, "network/register.html", {
-                "message": "Username already taken."
+                "Message": "Username already taken."
             })
 
 
@@ -303,7 +303,7 @@ def followme(request):
                 ProfToChange2.save()
 
 
-            return JsonResponse({"message": "Followers successfully changed."}, status=201)
+            return JsonResponse({"Message": "Followers successfully changed."}, status=201)
         except:
             return JsonResponse({"error": "Something Wrong trying to save changes." }, status=400)
 
@@ -332,7 +332,7 @@ def editpost_view(request):
         try:
             Posttochange.Post= newpost
             Posttochange.save()
-            return JsonResponse({"message": "Post successfully changed "}, status=201)
+            return JsonResponse({"Message": "Post successfully changed "}, status=201)
 
         except Exception as e:
             print("Exception trying to save post edit:",e)
@@ -340,31 +340,52 @@ def editpost_view(request):
 
 
     else:
-        return JsonResponse({"message": "Wrong Method , You´re not inside PUT."}, status=400 )
+        return JsonResponse({"Message": "Wrong Method , You´re not inside PUT."}, status=400 )
 
 @login_required
 @csrf_exempt
 def likes_view(request):
     if request.method == "PUT":
         data = json.loads(request.body)
-        print(f"DATA JSON", data)
         id = int(data['postid'])
         Liketoadd = Posts.objects.get(id=id)
-        if Liketoadd.User == request.user:
-            message = "You cannot like your own post"
-            
+        LikeUser = Liketoadd.User_id
+        print(Liketoadd)
+        print(LikeUser ,request.user.id )
 
+        if LikeUser == request.user.id :
+            print("You cannot like your own post")
+            return JsonResponse({"Message": "You cannot like your own post"}, status=403)
+        else:
+            checklikes = PostsLikes.object.filter(Posts_id=id ,User_id=LikeUser)
+            if len(checklikes):
+                try:
+                    Newlikes = PostsLikes(User_id=LikeUser,Posts_id=id)
+                    Newlikes.delete()
+                    Liketoadd.Likes -= 1
+                    Liketoadd.save()
+                    print("User already like this post, removing like")
+                    return JsonResponse({"Message": "User already liked this post, removing like"}, status=403)
+                except Exception as e:
+                    print("Exception trying to save post edit:",e)
+                    return JsonResponse({"error": f"{e} "  })
 
-        try:
-            Liketoadd.Likes += 1
-            Liketoadd.save()
-            return JsonResponse({"message": "Like added! "}, status=201)
+            else:
+                try:
+                    Newlikes = PostsLikes(User_id=LikeUser,Posts_id=id,Likes=1)
+                    Newlikes.save()
+                    if Liketoadd.Likes is None:
+                        Liketoadd.Likes = 1
+                    else:
+                        Liketoadd.Likes += 1
+                    Liketoadd.save()
+                    return JsonResponse({"Message": "Like added! "}, status=201)
 
-        except Exception as e:
-            print("Exception trying to save post edit:",e)
-            return JsonResponse({"error": f"{e} "  })
+                except Exception as e:
+                    print("Exception trying to save post edit:",e)
+                    return JsonResponse({"error": f"{e} "  })
     else:
-        return JsonResponse({"message": "Not inside PUT."}, status=400)
+        return JsonResponse({"Message": "Not inside PUT."}, status=400)
 
 
 
@@ -380,7 +401,7 @@ def unlikes_view(request):
 
 
 
-    return JsonResponse({"message": "unLike Status changed."}, status=201)
+    return JsonResponse({"Message": "unLike Status changed."}, status=201)
 
 
 
