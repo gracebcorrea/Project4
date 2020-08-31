@@ -1,4 +1,4 @@
-function editpost(postid, page){
+function editpost(postid){
    const oldtext = document.getElementById(`${postid}`).innerHTML;
    const newtext = document.getElementById(`${postid}`);
    document.getElementById(`edit-${postid}`).disabled = 'true';
@@ -14,38 +14,41 @@ function editpost(postid, page){
    `;
 
    document.querySelector(`#change-${postid}`).addEventListener('click', () =>
-      savenewpost(`${postid}`, `${page}`));
+      savenewpost(`${postid}`));
 }
 
 
-function savenewpost(postid, page){
-  const url = `/editpost/${postid}`;
+function savenewpost(postid){
+  var post_id = postid
+  const url = `/editpost/${post_id}`;
 
-  var textarea = document.querySelector(`#post-${postid}`);
+  var textarea = document.querySelector(`#post-${post_id}`);
   newpost = textarea.value;
 
   alert(`${newpost}`);
 
-  fetch(url, {
+  fetch(`/editpost/${post_id}`, {
     method: "PUT",
     body: JSON.stringify({
-       postid:`${postid}`,
-       page: `${page}`,
+       postid:`${post_id}`,
        newtext:`${newpost}`,
     })
   })
   .then(response => response.json())
   .then(result => {
-
        alert("Post edit saved!");
        console.log(result.status);
-
    })
    .catch((error) => {
        console.error(error);
-       alert(error);
+      alert(error);
+
 
    });
 }
 
 //chrome.exe --user-data-dir="D:\CS50"
+//virtualenv virtualenv
+//source virtual/Scripts/activate
+//pip install requests    (verifica se tem atualizaçoes)
+//virtualenv deactivate
