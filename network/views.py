@@ -354,14 +354,14 @@ def likes_view(request):
         print(LikeUser ,request.user.id )
 
         if LikeUser == request.user.id :
-            print("You cannot like your own post")
             return JsonResponse({"Message": "You cannot like your own post"}, status=403)
         else:
-            checklikes = PostsLikes.object.filter(Posts_id=id ,User_id=LikeUser)
-            if len(checklikes):
+            checklikes = PostsLikes.object.get(Posts_id=id ,User_id=LikeUser)
+            print(checklikes)
+            if checklikes:
+
                 try:
-                    Newlikes = PostsLikes(User_id=LikeUser,Posts_id=id)
-                    Newlikes.delete()
+                    checklikes.delete()
                     Liketoadd.Likes -= 1
                     Liketoadd.save()
                     print("User already like this post, removing like")
@@ -372,7 +372,7 @@ def likes_view(request):
 
             else:
                 try:
-                    Newlikes = PostsLikes(User_id=LikeUser,Posts_id=id,Likes=1)
+                    Newlikes = PostsLikes.objects.create(User_id=LikeUser,Posts_id=id,Likes=1)
                     Newlikes.save()
                     if Liketoadd.Likes is None:
                         Liketoadd.Likes = 1
