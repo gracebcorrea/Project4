@@ -25,8 +25,6 @@ function savenewpost(postid){
   var textarea = document.querySelector(`#post-${post_id}`);
   newpost = textarea.value;
 
-  alert(`${newpost}`);
-
   fetch(url, {
     method: "PUT",
     body: JSON.stringify({
@@ -36,8 +34,8 @@ function savenewpost(postid){
   })
   .then(response => response.json())
   .then(result => {
-       alert("Post edit saved!");
-       console.log(result.status);
+         console.log(result.status);
+      alert("Post edit saved!");
    })
    .catch((error) => {
        console.error(error);
