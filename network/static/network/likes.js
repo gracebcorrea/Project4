@@ -1,6 +1,5 @@
-likepost(postid){
+function likepost(postid){
   var post_id = postid;
-  alert("likepost",post_id);
   url = "/liked";
   fetch(url, {
     method: "PUT",
@@ -10,16 +9,16 @@ likepost(postid){
   })
   .then(response => response.json())
   .then(result => {
-      console.log(result.status);
-      alert("New Like saved!");
+    console.log(result.status);
+    window.location.reload(true);
    })
    .catch((error) => {
        console.error(error);
       alert(error);
-
+    });
 }
 
-unlikepost(postid){
+function unlikepost(postid){
     var post_id = postid;
     url = "/unliked";
     fetch(url, {
@@ -36,7 +35,12 @@ unlikepost(postid){
      .catch((error) => {
         console.error(error);
         alert(error);
-
-
-
+     });
 }
+
+
+//chrome.exe --user-data-dir="D:\CS50"
+//virtualenv virtual
+//source virtual/Scripts/activate
+//pip install requests    (verifica se tem atualizaçoes)
+//virtualenv deactivate
