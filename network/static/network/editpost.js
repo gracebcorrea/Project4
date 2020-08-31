@@ -20,14 +20,14 @@ function editpost(postid){
 
 function savenewpost(postid){
   var post_id = postid
-  const url = `/editpost/${post_id}`;
+  const url = "/editpost";
 
   var textarea = document.querySelector(`#post-${post_id}`);
   newpost = textarea.value;
 
   alert(`${newpost}`);
 
-  fetch(`/editpost/${post_id}`, {
+  fetch(url, {
     method: "PUT",
     body: JSON.stringify({
        postid:`${post_id}`,
