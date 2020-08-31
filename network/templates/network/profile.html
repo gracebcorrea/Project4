@@ -54,7 +54,7 @@
                     <input type="hidden" id="pagename-{{Post.id}}" value ="profile" >
                     <input type="hidden" id="oldpost-{{Post.id}}" value={{Post.Post}} >
                     {% if UserEdit|title == Post.User|title %}
-                       <p> <button class="btn btn-primary" id="edit-{{Post.id}}" onclick="editpost({{Post.id}},'profile')">
+                       <p> <button class="btn btn-primary" id="edit-{{Post.id}}" onclick="editpost({{Post.id}})">
                               Edit Post
                            </button></p>
                     {% endif %}
