@@ -4,11 +4,12 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.db import IntegrityError,connection, models
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse,include, path
-from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -356,10 +357,10 @@ def likes_view(request):
         if LikeUser == request.user.id :
             return JsonResponse({"Message": "You cannot like your own post"}, status=403)
         else:
-            checklikes = PostsLikes.object.get(Posts_id=id ,User_id=LikeUser)
-            print(checklikes)
-            if checklikes:
+            checklikes = PostsLikes.objects.get(Posts_id=id ,User_id=LikeUser)
 
+            if checklikes is not None:
+                print(checklikes)
                 try:
                     checklikes.delete()
                     Liketoadd.Likes -= 1
