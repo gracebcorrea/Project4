@@ -62,11 +62,13 @@
                          <p> {{Post.Date}} </p>
                       </div>
                       <div class="col-lg-1">
-                         <p> FALTA O like DESLIKE </p>
-                           {{Post.id}}
+                          <p> <button class="btn btn-primary" id="likes-{{Post.id}}" onclick="likepost({{Post.id}},'profile')">
+                               <i class="far fa-thumbs-up"></i>
+                              </button></p>
+                          <p> <button class="btn btn-primary" id="unlikes-{{Post.id}}" onclick="unlikepost({{Post.id}},'profile')">
+                               <i class="far fa-thumbs-down"></i>
+                              </button></p>
 
-                         <div id="likes">
-                         </div>
                       </div>
                   </div>
           </div>
