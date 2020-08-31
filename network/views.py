@@ -312,13 +312,20 @@ def followme(request):
 @login_required
 @csrf_exempt
 def editpost_view(request):
-    print("Inside editpost_view")
+
+
     if request.method == "PUT":
-        id = request.POST.get('postid')
-        newpost = request.POST.get('newtext')
+        print("inside PUT from editpost_view")
+        data = json.loads(request.body)
+        print(f"DATA JSON", data)
+
+        id = int(data['postid'])
+        newpost = data['newtext']
+        print(id )
+        print( newpost )
         Posttochange = Posts.objects.get(id=id)
 
-        print(id,newpost )
+
         print(Posttochange)
 
 
@@ -333,7 +340,7 @@ def editpost_view(request):
 
 
     else:
-        return JsonResponse({"message": "Wrong Method , You should use PUT."}, status=400 )
+        return JsonResponse({"message": "Wrong Method , You´re not inside PUT."}, status=400 )
 
 @login_required
 @csrf_exempt
