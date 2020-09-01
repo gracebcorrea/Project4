@@ -9,7 +9,7 @@ function likepost(postid){
   })
   .then(response => response.json())
   .then(result => {
-    alert("New Like saved!");
+    console.log(result.status);
     window.location.reload(true);
    })
    .catch((error) => {
@@ -29,7 +29,7 @@ function unlikepost(postid){
     })
     .then(response => response.json())
     .then(result => {
-        alert("New unLike saved!");
+        console.log(result.status);
         window.location.reload(true);
      })
      .catch((error) => {
