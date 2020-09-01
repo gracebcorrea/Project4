@@ -313,8 +313,6 @@ def followme(request):
 @login_required
 @csrf_exempt
 def editpost_view(request):
-
-
     if request.method == "PUT":
         print("inside PUT from editpost_view")
         data = json.loads(request.body)
@@ -322,26 +320,17 @@ def editpost_view(request):
 
         id = int(data['postid'])
         newpost = data['newtext']
-        print(id )
-        print( newpost )
         Posttochange = Posts.objects.get(id=id)
-
-
-        print(Posttochange)
-
-
         try:
             Posttochange.Post= newpost
             Posttochange.save()
             return JsonResponse({"Message": "Post successfully changed "}, status=201)
-
         except Exception as e:
             print("Exception trying to save post edit:",e)
             return JsonResponse({"error": f"{e} "  })
-
-
     else:
         return JsonResponse({"Message": "Wrong Method , You´re not inside PUT."}, status=400 )
+
 
 @login_required
 @csrf_exempt
@@ -355,15 +344,15 @@ def likes_view(request):
         if LikeUser == request.user.id :
             return JsonResponse({"Message": "You cannot like your own post"}, status=403)
         else:
-            checklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=LikeUser, Likes=1)
+            checklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=request.user.id, Likes=1)
             print(f"checklikes", checklikes)
             if not checklikes :
                 try:
                     print("Trying to save like")
-                    Newlikes = PostsLikes.objects.create(User_id=LikeUser,Posts_id=id,Likes=1)
+                    Newlikes = PostsLikes.objects.create(User_id=request.user.id,Posts_id=id,Likes=1)
                     Newlikes.save()
 
-                    totlikes = PostsLikes.objects.filter(Posts_id=id).count()
+                    totlikes = PostsLikes.objects.filter(Posts_id=id).values('Likes').count()
 
                     Liketoadd.Likes = totlikes
                     Liketoadd.save()
@@ -410,12 +399,12 @@ def unlikes_view(request):
         if unLikeUser == request.user.id :
             return JsonResponse({"Message": "You cannot unlike your own post"}, status=403)
         else:
-            unchecklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=unLikeUser, Unlikes=1)
+            unchecklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=request.user.id, Unlikes=1)
             print(f"checklikes", unchecklikes)
             if not unchecklikes :
                 try:
-                    print("Trying to save like")
-                    Newunlikes = PostsLikes.objects.create(Posts_id=id ,User_id=unLikeUser, Unlikes=1)
+                    print("Trying to save unlike")
+                    Newunlikes = PostsLikes.objects.create(Posts_id=id ,User_id=request.user.id, Unlikes=1)
                     Newunlikes.save()
 
                     totunlikes = PostsLikes.objects.filter(Posts_id=id).values('Unlikes').count()
