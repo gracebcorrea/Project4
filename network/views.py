@@ -342,7 +342,7 @@ def likes_view(request):
         LikeUser = Liketoadd.User_id
 
         if LikeUser == request.user.id :
-            return JsonResponse({"Message": "You cannot like your own post"}, status=403)
+            return JsonResponse({"Message": "You cannot like your own post!"}, status=403)
         else:
             checklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=request.user.id, Likes=1)
             print(f"checklikes", checklikes)
@@ -372,7 +372,6 @@ def likes_view(request):
                     Liketoadd.Likes = totlikes
                     Liketoadd.save()
 
-                    print("User already like this post, removing like")
                     return JsonResponse({"Message": "User already liked this post, removing like"}, status=403)
                 except Exception as e:
                     print("Exception trying to like:",e)
@@ -397,14 +396,14 @@ def unlikes_view(request):
         unLikeUser = unLiketoadd.User_id
 
         if unLikeUser == request.user.id :
-            return JsonResponse({"Message": "You cannot unlike your own post"}, status=403)
+            return JsonResponse({"Message": "You cannot unlike your own post!"}, status=403)
         else:
             unchecklikes = PostsLikes.objects.filter(Posts_id=id ,User_id=request.user.id, Unlikes=1)
             print(f"checklikes", unchecklikes)
             if not unchecklikes :
                 try:
                     print("Trying to save unlike")
-                    Newunlikes = PostsLikes.objects.create(Posts_id=id ,User_id=request.user.id, Unlikes=1)
+                    Newunlikes = PostsLikes.objects.create(User_id=request.user.id,Posts_id=id , Unlikes=1)
                     Newunlikes.save()
 
                     totunlikes = PostsLikes.objects.filter(Posts_id=id).values('Unlikes').count()
@@ -419,17 +418,15 @@ def unlikes_view(request):
                     return JsonResponse({"error": f"{e} "  })
             else:
                 try:
-                    print("Trying to delete like")
+                    print("Trying to delete unlike")
                     unchecklikes.delete()
-                    unchecklikes.save()
 
                     totlikes = PostsLikes.objects.filter(Posts_id=id).count()
 
-                    Liketoadd.Unlikes = totlikes
-                    Liketoadd.save()
+                    unLiketoadd.Unlikes = totlikes
+                    unLiketoadd.save()
 
-                    print("User already like this post, removing like")
-                    return JsonResponse({"Message": "User already liked this post, removing like"}, status=403)
+                    return JsonResponse({"Message": "User already unliked this post, removing unlike"}, status=403)
                 except Exception as e:
                     print("Exception trying to deslike:",e)
                     return JsonResponse({"error": f"{e} "  })
