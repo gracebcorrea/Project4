@@ -9,7 +9,11 @@ function likepost(postid){
   })
   .then(response => response.json())
   .then(result => {
-    console.log(result.status);
+    var Message = "";
+    for (var entry in result) {
+         Message +=  entry + ' : ' + result[entry] + '\n';
+    }
+    alert(Message);
     window.location.reload(true);
    })
    .catch((error) => {
@@ -29,8 +33,12 @@ function unlikepost(postid){
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result.status);
-        window.location.reload(true);
+      var Message = "";
+      for (var entry in result) {
+           Message +=  entry + ' : ' + result[entry] + '\n';
+      }
+      alert(Message);
+      window.location.reload(true);
      })
      .catch((error) => {
         console.error(error);
